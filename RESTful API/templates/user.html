@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+    <head>
+        <title>Person</title>
+    </head>
+    <body>
+        <table>
+            <tr>
+                <th>Person ID</th>
+                <th>Username</th>
+                <th>Firstname</th>
+                <th>Surname</th>
+            </tr>
+            {%for i in user%}
+                <tr>
+                    <td>{{i.userID}}</td>
+                    <td>{{i.username}}</td>
+                    <td>{{i.firstname}}</td>
+                    <td>{{i.surname}}</td>
+                </tr>
+            {%endfor%}
+        </table>
+    </body>
+</html>

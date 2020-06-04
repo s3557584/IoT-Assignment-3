@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+    <head>
+        <title>Person</title>
+    </head>
+    <body>
+        <table>
+            <tr>
+                <th>Vehicle ID</th>
+                <th>Brand</th>
+                <th>Model</th>
+                <th>Colour</th>
+                <th>Seats</th>
+            </tr>
+            {%for i in user%}
+                <tr>
+                    <td>{{i.vehicleID}}</td>
+                    <td>{{i.vehicleBrand}}</td>
+                    <td>{{i.vehicleModel}}</td>
+                    <td>{{i.colour}}</td>
+                    <td>{{i.seats}}</td>
+                </tr>
+            {%endfor%}
+        </table>
+    </body>
+</html>
