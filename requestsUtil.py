@@ -26,6 +26,14 @@ class requestsUtil:
                 data_dict = json.loads(data)
                 return data_dict
         
+        def get_users(self):
+                result = "http://127.0.0.1:8000/users" 
+                response = requests.get(result)
+                data = response.content
+
+                data_dict = json.loads(data)
+                return data_dict
+        
         def search(self, name, field, responseData):
                 keyValList = [name]
                 results = [d for d in responseData if d[field] in keyValList]

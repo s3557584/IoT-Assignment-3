@@ -22,6 +22,10 @@ class Search(FlaskForm):
     field = SelectField('Catergory', choices=[('colour', 'Colour'), ('vehicleBrand', 'Brand'), ('vehicleModel', 'Model')])
     keyword = StringField('Enter Keyword:', validators=[InputRequired()])
 
+class SearchUser(FlaskForm):
+    field = SelectField('Catergory', choices=[('username', 'Username'), ('firstname', 'First Name'), ('surname', 'Surname')])
+    keyword = StringField('Enter Keyword:', validators=[InputRequired()])
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -71,7 +75,7 @@ def records():
         return render_template('records.html', recordsData=recordsData)
     return redirect(url_for('login'))
 
-@app.route('/search', methods=['GET', 'POST'])
+@app.route('/search-vehicle', methods=['GET', 'POST'])
 def search():
     data = {}
     form = Search()
@@ -85,6 +89,21 @@ def search():
             return render_template('search.html', data=data, form=form)
     else:     
         return render_template('search.html',form=form, data=data)
+
+@app.route('/search-user', methods=['GET', 'POST'])
+def searchUser():
+    data = {}
+    form = SearchUser()
+    objRec = requestsUtil()
+    if request.method == "POST":
+        if form.validate_on_submit():
+            keyword = form.keyword.data
+            category = form.field.data
+            apiData = objRec.get_users()
+            data = objRec.search(keyword, category, apiData)
+            return render_template('searchUser.html', data=data, form=form)
+    else:     
+        return render_template('searchUser.html',form=form, data=data)
     
 
 @app.before_request
