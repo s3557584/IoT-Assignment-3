@@ -1,34 +1,16 @@
-{% extends "bootstrap/base.html" %}
-{% import "bootstrap/wtf.html" as wtf %}
+{% extends 'layout.html' %}
 
-{% block title %}
-Login
-{% endblock %}
-
-{% block styles %}
-{{super()}}
-<link rel="stylesheet" href="{{url_for('.static', filename='signin.css')}}">
-{% endblock %}
-
-{% block content %}
-    <div class="container">
-      <form class="form-signin" method="POST" action="/login">
-		{% with messages = get_flashed_messages() %}
-			{% if messages %}
-				{% for message in messages %}
-					<div class="alert alert-danger alert-dismissible" role="alert">
-						{{message}}
-					</div>
-				{% endfor %}
-			{% endif %}
-		{% endwith %}
-        <h2 class="form-signin-heading">Please sign in</h2>
-		{{ form.hidden_tag() }}
-		{{ wtf.form_field(form.username) }}
-		{{ wtf.form_field(form.password) }}
-		{{ wtf.form_field(form.remember) }}
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      </form>
-
-    </div> <!-- /container -->
+{% block body %}
+  <h1>Login</h1>
+  <form action="" method="POST">
+    <div class="form-group">
+      <label>Username</label>
+      <input type="text" name="username" class="form-control" value={{request.form.username}}>
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" name="password" class="form-control" value={{request.form.password}}>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
 {% endblock %}

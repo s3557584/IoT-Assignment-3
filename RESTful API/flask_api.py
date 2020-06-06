@@ -119,6 +119,8 @@ class UserSchema(ma.Schema):
     password = fields.String(required=True)
     imageName = fields.String(required=True)
 
+
+
 class VehicleSchema(ma.Schema):
     """
     User Schema
@@ -155,6 +157,11 @@ class RecordsSchema(ma.Schema):
     vehicle = fields.Nested(VehicleSchema)
     user = fields.Nested(UserSchema)
 
+class UpdateAddUserSchema(ma.Schema):
+    class Meta:
+        # Fields to expose
+        fields = ('userID','username', 'firstname', 'surname', 'password', 'imageName')
+
 # Init schema
 record_schema = RecordsSchema()
 records_schema = RecordsSchema(many=True)
@@ -166,12 +173,83 @@ admin_schema = AdminSchema()
 admins_schema = AdminSchema(many=True)
 only_vehicle_schema = OnlyVehicleSchema()
 only_vehicles_schema = OnlyVehicleSchema(many=True)
+update_add_user_Schema = UpdateAddUserSchema()
 
 # Endpoint to show all users.
 @api.route("/admin/<adminUsername>", methods = ["GET"])
 def get_admin(adminUsername):
     admin = Admin.query.get(adminUsername)
     return admin_schema.jsonify(admin)
+
+# Endpoint to show all users.
+@api.route("/users/<userID>", methods = ["GET"])
+def get_user(userID):
+    admin = User.query.get(userID)
+    return user_schema.jsonify(admin)
+
+# Create a User
+@api.route('/user/<userID>', methods=['PUT'])
+def update_user(userID):
+    user = User.query.get(userID)
+    username = request.json['username']
+    firstname = request.json['firstname']
+    surname = request.json['surname']
+    password = request.json['password']
+    imageName = request.json['imageName']
+
+    user.username = username
+    user.firstname = firstname
+    user.surname = surname
+    user.password = password
+    user.imageName = imageName
+
+    db.session.commit()
+    return update_add_user_Schema.jsonify(user)
+
+
+@api.route('/user', methods=['POST'])
+def add_user():
+    username = request.json['username']
+    firstname = request.json['firstname']
+    surname = request.json['surname']
+    password = request.json['password']
+    imageName = request.json['imageName']
+
+    new_user = User(username, firstname, surname, password, imageName)
+
+    db.session.add(new_user)
+    db.session.commit()
+
+    return update_add_user_Schema.jsonify(new_user)
+
+# Create a Vehicle
+@api.route('/vehicle', methods=['POST'])
+def add_vehicle():
+    """
+    Function to add a Vehicle
+    
+    Parameters:
+        None
+		
+    Returns:
+        vehicle_schema.jsonify(new_vehicle): convert received data to json format
+    """
+    vehicleBrand = request.json['brand']
+    vehicleModel = request.json['model']
+    rentalStatus = request.json['status']
+    colour = request.json['colour']
+    seats = request.json['seats']
+    latitude = request.json['latitude']
+    longitude = request.json['longitude']
+    cost = request.json['cost']
+    userID = request.json['id']
+
+    new_vehicle = Vehicle(vehicleBrand, vehicleModel, rentalStatus, colour, seats, latitude, longitude, cost, userID)
+
+    db.session.add(new_vehicle)
+    db.session.commit()
+
+    return vehicle_schema.jsonify(new_vehicle)
 
 # Endpoint to show all users.
 @api.route("/admin", methods = ["GET"])
