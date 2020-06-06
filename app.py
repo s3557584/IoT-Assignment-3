@@ -95,7 +95,6 @@ class VehicleForm(Form):
 @is_logged_in
 def add_vehicle():
     form = VehicleForm(request.form)
-    cost = [15,20,25]
     if request.method == 'POST' and form.validate():
         brand = form.brand.data
         colour = form.colour.data
@@ -119,7 +118,6 @@ class SearchUser(Form):
 @app.route('/search_user', methods=['GET', 'POST'])
 @is_logged_in
 def searchUser():
-    data = {}
     form = SearchUser(request.form)
     objRec = requestsUtil()
     if request.method == "POST" and form.validate():
@@ -127,10 +125,35 @@ def searchUser():
         category = form.category.data
         results = objRec.get_users()
         data = objRec.search(keyword, category, results)
+        if not data:
+            error = 'No Result!!!'
+            return render_template('searchUser.html', data=data, form=form, error=error) 
+        else:
+            return render_template('searchUser.html', data=data, form=form)    
+    
+    return render_template('searchUser.html',form=form)
 
-        return render_template('searchUser.html', data=data, form=form)
-    else:     
-        return render_template('searchUser.html',form=form, data=data)
+class SearchVehicle(Form):
+    category = SelectField('Catergory', choices=[('colour', 'Colour'), ('vehicleBrand', 'Brand'), ('vehicleModel', 'Model')])
+    keyword = StringField('Enter Keyword:', validators=[InputRequired()])
+
+@app.route('/search_vehicle', methods=['GET', 'POST'])
+@is_logged_in
+def searchVehicle():
+    form = SearchVehicle(request.form)
+    objRec = requestsUtil()
+    if request.method == "POST" and form.validate():
+        keyword = form.keyword.data
+        category = form.category.data
+        results = objRec.get_vehicles()
+        data = objRec.search(keyword, category, results)
+        if not data:
+            error = 'No Result!!!'
+            return render_template('searchVehicle.html', data=data, form=form, error=error) 
+        else:
+            return render_template('searchVehicle.html', data=data, form=form)    
+    
+    return render_template('searchVehicle.html',form=form)
 
 if __name__=='__main__':
     app.secret_key='secret123'
