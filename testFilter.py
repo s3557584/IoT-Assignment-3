@@ -75,5 +75,6 @@ def decryptPassword(encrypted_password):
 encrypted = ""
 
 
-updateobj = requestsUtil("10")
-updateobj.update_user("CY","Ching","Loo","Testing@123","croppedImage")
+updateobj = requestsUtil()
+#updateobj.update_vehicle("1", "Toyota", "Black", "10", "4", "Altis")
+print(updateobj.get_vehicle(1))

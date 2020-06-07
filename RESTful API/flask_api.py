@@ -162,6 +162,14 @@ class UpdateAddUserSchema(ma.Schema):
         # Fields to expose
         fields = ('userID','username', 'firstname', 'surname', 'password', 'imageName')
 
+class UpdateAddVehicleSchema(ma.Schema):
+    """
+    Vehicle Schema class
+    """
+    class Meta:
+        fields = ('vehicleID', 'vehicleBrand', 'vehicleModel', 'rentalStatus', 'colour', 'seats', 'latitude', 'longitude', 'cost', 'userID')
+
+
 # Init schema
 record_schema = RecordsSchema()
 records_schema = RecordsSchema(many=True)
@@ -174,6 +182,7 @@ admins_schema = AdminSchema(many=True)
 only_vehicle_schema = OnlyVehicleSchema()
 only_vehicles_schema = OnlyVehicleSchema(many=True)
 update_add_user_Schema = UpdateAddUserSchema()
+update_add_vehicle_schema = UpdateAddVehicleSchema()
 
 # Endpoint to show all users.
 @api.route("/admin/<adminUsername>", methods = ["GET"])
@@ -182,10 +191,16 @@ def get_admin(adminUsername):
     return admin_schema.jsonify(admin)
 
 # Endpoint to show all users.
-@api.route("/users/<userID>", methods = ["GET"])
+@api.route("/user/<userID>", methods = ["GET"])
 def get_user(userID):
     admin = User.query.get(userID)
     return user_schema.jsonify(admin)
+
+# Endpoint to show all users.
+@api.route("/vehicle/<vehicleID>", methods = ["GET"])
+def get_vehicle(vehicleID):
+    admin = Vehicle.query.get(vehicleID)
+    return update_add_vehicle_schema.jsonify(admin)
 
 # Create a User
 @api.route('/user/<userID>', methods=['PUT'])
@@ -251,6 +266,42 @@ def add_vehicle():
 
     return vehicle_schema.jsonify(new_vehicle)
 
+@api.route('/vehicle/<vehicleID>', methods=['PUT'])
+def update_vehicle(vehicleID):
+    """
+    Function to add a Vehicle
+    
+    Parameters:
+        None
+		
+    Returns:
+        vehicle_schema.jsonify(new_vehicle): convert received data to json format
+    """
+    vehicle = Vehicle.query.get(vehicleID)
+    vehicleBrand = request.json['vehicleBrand']
+    vehicleModel = request.json['vehicleModel']
+    rentalStatus = request.json['rentalStatus']
+    colour = request.json['colour']
+    seats = request.json['seats']
+    latitude = request.json['latitude']
+    longitude = request.json['longitude']
+    cost = request.json['cost']
+    
+
+    vehicle.vehicleBrand = vehicleBrand
+    vehicle.vehicleModel = vehicleModel
+    vehicle.rentalStatus = rentalStatus
+    vehicle.colour = colour
+    vehicle.seats = seats
+    vehicle.latitude = latitude
+    vehicle.longitude = longitude
+    vehicle.cost = cost
+
+
+    db.session.commit()
+
+    return update_add_vehicle_schema.jsonify(vehicle)
+
 # Endpoint to show all users.
 @api.route("/admin", methods = ["GET"])
 def get_admins():
@@ -284,3 +335,19 @@ def get_only_vehicles():
     all_vehicles = Vehicle.query.all()
     result = only_vehicles_schema.dump(all_vehicles)
     return jsonify(result)
+
+@api.route('/deleteVehicle/<vehicleID>', methods=["DELETE"])
+def delete_vehicle(vehicleID):
+    vehicle = Vehicle.query.get(vehicleID)
+    db.session.delete(vehicle)
+    db.session.commit()
+
+    return vehicle_schema.jsonify(vehicle)
+
+@api.route('/deleteUser/<userID>', methods=["DELETE"])
+def delete_user(userID):
+    user = User.query.get(userID)
+    db.session.delete(user)
+    db.session.commit()
+
+    return user_schema.jsonify(user)

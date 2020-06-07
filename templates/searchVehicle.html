@@ -34,6 +34,9 @@
 			<th>Brand</th>
 			<th>Model</th>
 			<th>Colour</th>
+			<th>Cost</th>
+			<th></th>
+			<th></th>
 		  </tr>
 		 {%for i in data%}
 			<tr>
@@ -41,6 +44,14 @@
 				<td>{{i['vehicleBrand']}}</td>
 				<td>{{i['vehicleModel']}}</td>
 				<td>{{i['colour']}}</td>
+				<td>{{i['cost']}}</td>
+				<td><a href="edit_vehicle/{{i['vehicleID']}}" class="btn btn-default pullright">Edit</a></td >
+				<td>
+					<form action="{{url_for('deleteVehicle', vehicleID=i['vehicleID'])}}" method="post">
+						<input type="hidden" name="_method" value="DELETE">
+						<input type="submit" value="Delete" class="btn btn-danger">
+					</form>
+				</td>
 			</tr>
 		 {%endfor%}
 		</table>

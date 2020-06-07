@@ -3,6 +3,7 @@ from functools import wraps
 from wtforms import Form, StringField, TextAreaField, PasswordField, validators, SelectField
 from wtforms.validators import InputRequired
 from requestsUtil import requestsUtil
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -84,6 +85,37 @@ def add_user():
 
     return render_template('add_user.html', form=form)
 
+@app.route('/edit_user/<string:userID>', methods=['GET', 'POST'])
+@is_logged_in
+def edit_user(userID):
+    obj = requestsUtil()
+    result = obj.get_user(userID)
+
+    form = UserForm(request.form)
+
+    form.username.data = result['username']
+    form.firstname.data = result['firstname']
+    form.surname.data = result['surname']
+    form.password.data = result['password']
+    form.imageName.data = result['imageName']
+
+
+    if request.method == 'POST' and form.validate():
+        username = request.form['username']
+        firstname = request.form['firstname']
+        surname = request.form['surname']
+        password = request.form['password']
+        imageName = request.form['imageName']
+
+        obj = requestsUtil()
+        obj.update_user(userID, username, firstname, surname, password, imageName)
+
+        flash('User Updated', 'success')
+
+        return redirect(url_for('dashboard'))
+
+    return render_template('edit_user.html', form=form)
+
 class VehicleForm(Form):
     brand = StringField('Brand', [validators.length(min=1, max=50)])
     colour =  StringField('Colour', [validators.length(min=1, max=50)])
@@ -110,6 +142,35 @@ def add_vehicle():
         return redirect(url_for('dashboard'))
 
     return render_template('add_vehicle.html', form=form, cost=cost)
+
+@app.route('/edit_vehicle/<string:vehicleID>', methods=['GET', 'POST'])
+@is_logged_in
+def edit_vehicle(vehicleID):
+    obj = requestsUtil()
+    result = obj.get_vehicle(vehicleID)
+
+    form = VehicleForm(request.form)
+
+    form.brand.data = result['vehicleBrand']
+    form.colour.data = result['colour']
+    form.model.data = result['vehicleModel']
+
+
+    if request.method == 'POST' and form.validate():
+        vehicleBrand = request.form['brand']
+        colour = request.form['colour']
+        cost = request.form['cost']
+        seats = request.form['seats']
+        vehicleModel = request.form['model']
+
+        obj = requestsUtil()
+        obj.update_vehicle(vehicleID, vehicleBrand, colour, cost, seats, vehicleModel)
+
+        flash('Vehicle Updated', 'success')
+
+        return redirect(url_for('dashboard'))
+
+    return render_template('edit_vehicle.html', form=form)
 
 class SearchUser(Form):
     category = SelectField('Catergory', choices=[("username", "Username"), ("firstname", "First Name"), ("surname", "Surname")])
@@ -154,6 +215,28 @@ def searchVehicle():
             return render_template('searchVehicle.html', data=data, form=form)    
     
     return render_template('searchVehicle.html',form=form)
+
+@app.route('/delete_vehicle/<string:vehicleID>', methods=['GET', 'POST'])
+@is_logged_in
+def deleteVehicle(vehicleID):
+
+    obj = requestsUtil()
+    obj.delete_vehicle(vehicleID)
+
+    flash('Vehicle Deleted', 'success')
+    
+    return redirect(url_for('dashboard'))
+
+@app.route('/delete_user/<string:userID>', methods=['GET', 'POST'])
+@is_logged_in
+def deleteUser(userID):
+
+    obj = requestsUtil()
+    obj.delete_user(userID)
+
+    flash('User Deleted', 'success')
+    
+    return redirect(url_for('dashboard'))
 
 if __name__=='__main__':
     app.secret_key='secret123'

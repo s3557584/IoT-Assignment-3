@@ -34,6 +34,8 @@
 			<th>Username</th>
 			<th>First Name</th>
 			<th>Surname</th>
+			<th></th>
+			<th></th>
 		  </tr>
 		 {%for i in data%}
 			<tr>
@@ -41,6 +43,13 @@
 				<td>{{i['username']}}</td>
 				<td>{{i['firstname']}}</td>
 				<td>{{i['surname']}}</td>
+				<td><a href="edit_user/{{i['userID']}}" class="btn btn-default pullright">Edit</a></td >
+				<td>
+					<form action="{{url_for('deleteUser', userID=i['userID'])}}" method="post">
+						<input type="hidden" name="_method" value="DELETE">
+						<input type="submit" value="Delete" class="btn btn-danger">
+					</form>
+				</td>
 			</tr>
 		 {%endfor%}
 		</table>
