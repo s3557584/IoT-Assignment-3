@@ -21,17 +21,19 @@ def login():
         status = not bool(results) 
         
         if status != True:
-            if results.get("adminPassword") == password_candidate:
+
+            decryptedPassword = obj.decryptPassword(results.get("adminPassword"))
+
+            if decryptedPassword == password_candidate:
                 session['logged_in'] = True
                 session['username'] = username
 
                 flash('You are now logged in', 'success')
                 return redirect(url_for('dashboard'))
             else:
-                error = "Password incorrect"
-                app.logger.info('PASSWORD NOT MATCHED')
+                error = "Password incorrect!!!"
+                return render_template('login.html', error=error)
         else:
-            error = "Username not found"
             return render_template('login.html', error=error)
     
     return render_template('login.html')
@@ -77,7 +79,10 @@ def add_user():
         imageName = form.imageName.data
 
         obj = requestsUtil()
-        obj.add_user(username, firstname, surname, password, imageName)
+
+        encryptedPassword = obj.encryptPassword(password)
+
+        obj.add_user(username, firstname, surname, encryptedPassword, imageName)
 
         flash('User Added', 'success')
 
@@ -93,10 +98,12 @@ def edit_user(userID):
 
     form = UserForm(request.form)
 
+    decryptedPassword = obj.decryptPassword(result['password'])
+
     form.username.data = result['username']
     form.firstname.data = result['firstname']
     form.surname.data = result['surname']
-    form.password.data = result['password']
+    form.password.data = decryptedPassword
     form.imageName.data = result['imageName']
 
 
@@ -107,8 +114,10 @@ def edit_user(userID):
         password = request.form['password']
         imageName = request.form['imageName']
 
+        encryptedPassword = obj.encryptPassword(password)
+
         obj = requestsUtil()
-        obj.update_user(userID, username, firstname, surname, password, imageName)
+        obj.update_user(userID, username, firstname, surname, encryptedPassword, imageName)
 
         flash('User Updated', 'success')
 
@@ -141,7 +150,7 @@ def add_vehicle():
 
         return redirect(url_for('dashboard'))
 
-    return render_template('add_vehicle.html', form=form, cost=cost)
+    return render_template('add_vehicle.html', form=form)
 
 @app.route('/edit_vehicle/<string:vehicleID>', methods=['GET', 'POST'])
 @is_logged_in
