@@ -141,6 +141,7 @@ def a_register():
 def distinguish():
     window_distinguish = tk.Toplevel(window)
     # window_distinguish = tk.Tk()
+<<<<<<< HEAD
     window_distinguish.title('二维码识别界面')
     window_distinguish.geometry('350x200')
     Label(window_distinguish, text='请选择二维码的识别方式：',font=('楷体',14)).place(x=10,y=5)
@@ -149,4 +150,14 @@ def distinguish():
 
 tk.Button(window, text='二维码识别', font=('楷体', 16), fg='red',command=distinguish).place(x=280, y=220)
 tk.Button(window, text='二维码生成',font=('楷体',16),fg='green',command=sign_in).place(x=70,y=220)
+=======
+    window_distinguish.title('QRcode Identify sys')
+    window_distinguish.geometry('350x200')
+    Label(window_distinguish, text='Plz enter the way you want to identify your QRcode：',font=('Arial',14)).place(x=10,y=5)
+    Button(window_distinguish, text='Real-time identification', font=('Arial', 16), fg='black', command=b_register).place(x=30, y=80)
+    Button(window_distinguish, text='video identification', font=('Arial', 16), fg='black', command=a_register).place(x=160, y=80)
+
+tk.Button(window, text='QRcode identified', font=('Arial', 16), fg='red',command=distinguish).place(x=280, y=220)
+tk.Button(window, text='QRcode generated',font=('Arial',16),fg='green',command=sign_in).place(x=70,y=220)
+>>>>>>> parent of 0638f4f... Update qr.py
 window.mainloop()     
