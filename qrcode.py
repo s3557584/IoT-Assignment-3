@@ -15,8 +15,8 @@ tk.Label(window, text='QRcode generate & identify', font=('Arial', 20)).pack()
 def sign_in():
 
     root = Tk()
-    root.title('二维码生成')
-    Label(root, text='请输入内容:').grid(row=0, column=0)
+    root.title('Generate QRcode')
+    Label(root, text='Plz enter your IDnum:').grid(row=0, column=0)
     Label(root, text='').grid(row=1, column=0)
     e1 = Entry(root)
     e1.grid(row=0, column=1, padx=10, pady=5)
@@ -41,9 +41,9 @@ def sign_in():
         plt.axis('off')  # xy off
         plt.show()
 
-    Button(root, text='生成二维码', width=10, command=show).grid(row=3, column=0, sticky=W, padx=10, pady=5)
+    Button(root, text='Generate QRcode', width=10, command=show).grid(row=3, column=0, sticky=W, padx=10, pady=5)
 
-    Button(root, text='退出', width=10, command=root.quit).grid(row=3, column=1, sticky=E, padx=10, pady=5)
+    Button(root, text='Exit', width=10, command=root.quit).grid(row=3, column=1, sticky=E, padx=10, pady=5)
 
     
     mainloop()
@@ -63,7 +63,7 @@ def b_register():
             cv2.rectangle(image, (x, y), (x + w, y + h), (0, 225, 0), 2)
 
                                                                 
-            barcodeData = barcode.data.decode("UTF-8")
+            barcodeData = barcode.data.decode("")
                                                                  
             barcodeType = barcode.type
                                                                   
@@ -101,7 +101,7 @@ def b_register():
 
     if __name__ == '__main__':
         detect()
-# 识别二维码--视频识别
+# Video ideinfy
 def a_register():
     import cv2
     import pyzbar.pyzbar as pyzbar
@@ -129,7 +129,7 @@ def a_register():
             im = decodeDisplay(gray)
             cv2.waitKey(8)
             cv2.imshow("camera", im)
-            # 如果按键q则跳出本次循环
+            # press q exit loop
             if cv2.waitKey(1) == ord('Q'):
                 break
         camera.release()
@@ -141,41 +141,12 @@ def a_register():
 def distinguish():
     window_distinguish = tk.Toplevel(window)
     # window_distinguish = tk.Tk()
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    window_distinguish.title('二维码识别界面')
-    window_distinguish.geometry('350x200')
-    Label(window_distinguish, text='请选择二维码的识别方式：',font=('楷体',14)).place(x=10,y=5)
-    Button(window_distinguish, text='实时识别', font=('楷体', 16), fg='black', command=b_register).place(x=30, y=80)
-    Button(window_distinguish, text='视频识别', font=('楷体', 16), fg='black', command=a_register).place(x=160, y=80)
-
-tk.Button(window, text='二维码识别', font=('楷体', 16), fg='red',command=distinguish).place(x=280, y=220)
-tk.Button(window, text='二维码生成',font=('楷体',16),fg='green',command=sign_in).place(x=70,y=220)
-=======
     window_distinguish.title('QRcode Identify sys')
-=======
-    window_distinguish.title('二维码识别界面')
->>>>>>> parent of d404fcc... Update qr.py
-=======
-    window_distinguish.title('二维码识别界面')
->>>>>>> parent of d404fcc... Update qr.py
-    window_distinguish.geometry('350x200')
-    Label(window_distinguish, text='请选择二维码的识别方式：',font=('楷体',14)).place(x=10,y=5)
-    Button(window_distinguish, text='实时识别', font=('楷体', 16), fg='black', command=b_register).place(x=30, y=80)
-    Button(window_distinguish, text='视频识别', font=('楷体', 16), fg='black', command=a_register).place(x=160, y=80)
+    window_distinguish.geometry('480x200')
+    Label(window_distinguish, text='Plz enter the way you want to identify your QRcode：',font=('Arial',14)).place(x=10,y=5)
+    Button(window_distinguish, text='Real-time', font=('Arial', 16), fg='black', command=b_register).place(x=50, y=80)
+    Button(window_distinguish, text='video', font=('Arial', 16), fg='black', command=a_register).place(x=330, y=80)
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 tk.Button(window, text='QRcode identified', font=('Arial', 16), fg='red',command=distinguish).place(x=280, y=220)
 tk.Button(window, text='QRcode generated',font=('Arial',16),fg='green',command=sign_in).place(x=70,y=220)
->>>>>>> parent of 0638f4f... Update qr.py
-=======
-tk.Button(window, text='二维码识别', font=('楷体', 16), fg='red',command=distinguish).place(x=280, y=220)
-tk.Button(window, text='二维码生成',font=('楷体',16),fg='green',command=sign_in).place(x=70,y=220)
->>>>>>> parent of d404fcc... Update qr.py
-=======
-tk.Button(window, text='二维码识别', font=('楷体', 16), fg='red',command=distinguish).place(x=280, y=220)
-tk.Button(window, text='二维码生成',font=('楷体',16),fg='green',command=sign_in).place(x=70,y=220)
->>>>>>> parent of d404fcc... Update qr.py
 window.mainloop()     
