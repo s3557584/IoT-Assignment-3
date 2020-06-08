@@ -66,6 +66,14 @@ class requestsUtil:
                 data_dict = json.loads(data)
                 return data_dict
         
+        def get_engineers(self):
+                result = "http://127.0.0.1:8000/engineers" 
+                response = requests.get(result)
+                data = response.content
+
+                data_dict = json.loads(data)
+                return data_dict
+        
         def add_user(self, username, firstname, surname, password, imageName):
                 url = "http://127.0.0.1:8000/user"
                 response = requests.post(url, json={'username':username,'firstname':firstname,'surname':surname,'password':password, 'imageName':imageName})
@@ -74,6 +82,11 @@ class requestsUtil:
         def add_vehicle(self, brand, colour, cost, seats, model):
                 url = "http://127.0.0.1:8000/vehicle"
                 response = requests.post(url, json={'brand':brand,'colour':colour,'cost':cost,'latitude':None,'longitude':None,'status':True,'seats':seats,'id':None,'model':model})
+                print(response)
+        
+        def add_maintenance(self, vehicleID, vehicleModel, longitude, latitude, engineerName, engineerEmail):
+                url = "http://127.0.0.1:8000/maintenance"
+                response = requests.post(url, json={'vehicleID':vehicleID,'model':vehicleModel,'longitude':longitude,'latitude':latitude,'engineerName':engineerName,'engineerEmail':engineerEmail})
                 print(response)
         
         def delete_vehicle(self, id):

@@ -9,6 +9,8 @@ from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.fernet import Fernet
 import requests
 
+from pushbullet.pushbullet import PushBullet
+
 objRec = requestsUtil()
 data = objRec.get_users()
 
@@ -77,4 +79,16 @@ encrypted = ""
 
 updateobj = requestsUtil()
 #updateobj.update_vehicle("1", "Toyota", "Black", "10", "4", "Altis")
-print(updateobj.get_vehicle(1))
+result = updateobj.get_engineers()
+results = []
+
+for i in result:
+         results.append(i['engineerUsername'])
+
+tupleDropDownValue = [(val,val) for val in results]
+print(tupleDropDownValue)
+
+apiKey = "o.spfQSePwyGKGMeZG8DZxXZRJIMmSli0X"
+p = Pushbullet(apiKey)
+
+p.pushNote('myemail@domain.com', 'Hello world', 'Test body', recipient_type='iot.assignment2020@gmail.com')

@@ -3,6 +3,7 @@ from functools import wraps
 from wtforms import Form, StringField, TextAreaField, PasswordField, validators, SelectField
 from wtforms.validators import InputRequired
 from requestsUtil import requestsUtil
+from pushbullet.pushbullet import PushBullet
 
 app = Flask(__name__)
 
@@ -246,6 +247,52 @@ def deleteUser(userID):
     flash('User Deleted', 'success')
     
     return redirect(url_for('dashboard'))
+
+class MaintenanceForm(Form):
+    engineerName = SelectField('Engineer')
+
+@app.route('/report_vehicle/<string:vehicleID>', methods=['GET', 'POST'])
+@is_logged_in
+def add_maintenance(vehicleID):
+    obj = requestsUtil()
+    form = MaintenanceForm(request.form)
+    engineerResult = obj.get_engineers()
+    result = obj.get_vehicle(vehicleID)
+    
+    dropdownValue = []
+    
+    for i in engineerResult:
+        dropdownValue.append(i['engineerUsername'])
+    
+    tupleDropDownValue = [(val,val) for val in dropdownValue]
+    
+    form.engineerName.choices = tupleDropDownValue
+
+    if request.method == 'POST' and form.validate():
+        apiKey = "o.spfQSePwyGKGMeZG8DZxXZRJIMmSli0X"
+        p = PushBullet(apiKey)
+
+
+
+        vehicleID = result['vehicleID']
+        vehicleModel = result['vehicleModel']
+        longitude = result['longitude']
+        latitude = result['latitude']
+        engineerName = request.form['engineerName']
+        engineerEmail = ""
+        
+        for i in engineerResult:
+            if i['engineerUsername'] == engineerName:
+                engineerEmail = i['engineerEmail']
+
+        obj.add_maintenance(vehicleID, vehicleModel, longitude, latitude, engineerName, engineerEmail)
+        p.pushNote(engineerEmail, 'Vehicle Required Maintenence', 'A vehicle has been assigned to you for maintenence', recipient_type='email')
+
+        flash('Vehicle Reported', 'success')
+
+        return redirect(url_for('dashboard'))
+
+    return render_template('report_vehicle.html', form=form)
 
 if __name__=='__main__':
     app.secret_key='secret123'

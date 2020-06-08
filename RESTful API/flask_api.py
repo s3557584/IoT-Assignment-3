@@ -100,6 +100,35 @@ class Records(db.Model):
         self.vehicleID = vehicleID
         self.userID = userID
 
+class Maintenance(db.Model):
+    maintenanceID = db.Column(db.Integer, primary_key=True)
+    vehicleID = db.Column(db.Integer)
+    vehicleModel = db.Column(db.String(100))
+    longitude = db.Column(db.Float)
+    latitude = db.Column(db.Float)
+    engineerName = db.Column(db.String(100))
+    engineerEmail = db.Column(db.String(100))
+    
+    def __init__(self, vehicleID, vehicleModel, longitude, latitude, engineerName, engineerEmail):
+        self.vehicleID = vehicleID
+        self.vehicleModel = vehicleModel
+        self.longitude = longitude
+        self.latitude = latitude
+        self.engineerName = engineerName
+        self.engineerEmail = engineerEmail
+
+class Engineer(db.Model):
+    engineerUsername = db.Column(db.String(100), primary_key=True)
+    engineerName = db.Column(db.String(100))
+    engineerPassword = db.Column(db.String(1111))
+    engineerEmail = db.Column(db.String(100))
+    
+    def __init__(self, engineerUsername, engineerName, engineerPassword, engineerEmail):
+        self.engineerUsername = engineerUsername
+        self.engineerName = engineerName
+        self.engineerPassword = engineerPassword
+        self.engineerEmail = engineerEmail
+
 class AdminSchema(ma.Schema):
     """
     Admin Schema
@@ -107,6 +136,15 @@ class AdminSchema(ma.Schema):
     adminUsername = fields.String(required=True)
     adminName = fields.String(required=True)
     adminPassword = fields.String(required=True)
+
+class EngineerSchema(ma.Schema):
+    """
+    Admin Schema
+    """
+    engineerUsername = fields.String(required=True)
+    engineerName = fields.String(required=True)
+    engineerPassword = fields.String(required=True)
+    engineerEmail = fields.String(required=True)
 
 class UserSchema(ma.Schema):
     """
@@ -162,6 +200,11 @@ class UpdateAddUserSchema(ma.Schema):
         # Fields to expose
         fields = ('userID','username', 'firstname', 'surname', 'password', 'imageName')
 
+class MaintenanceSchema(ma.Schema):
+    class Meta:
+        # Fields to expose
+        fields = ('vehicleID','userID','vehicleModel', 'longitude', 'latitude', 'engineerName')
+
 class UpdateAddVehicleSchema(ma.Schema):
     """
     Vehicle Schema class
@@ -178,11 +221,14 @@ vehicles_schema = VehicleSchema(many=True)
 user_schema = UserSchema()
 users_schema = UserSchema(many=True)
 admin_schema = AdminSchema()
+engineer_schema = EngineerSchema()
+engineers_schema = EngineerSchema(many=True)
 admins_schema = AdminSchema(many=True)
 only_vehicle_schema = OnlyVehicleSchema()
 only_vehicles_schema = OnlyVehicleSchema(many=True)
 update_add_user_Schema = UpdateAddUserSchema()
 update_add_vehicle_schema = UpdateAddVehicleSchema()
+maintenance_schema = MaintenanceSchema()
 
 # Endpoint to show all users.
 @api.route("/admin/<adminUsername>", methods = ["GET"])
@@ -266,6 +312,23 @@ def add_vehicle():
 
     return vehicle_schema.jsonify(new_vehicle)
 
+# Create a Vehicle
+@api.route('/maintenance', methods=['POST'])
+def add_maintenance():
+    vehicleID = request.json['vehicleID']
+    vehicleModel = request.json['model']
+    longitude = request.json['longitude']
+    latitude = request.json['latitude']
+    engineerName = request.json['engineerName']
+    engineerEmail = request.json['engineerEmail']
+
+    new_maintenance = Maintenance(vehicleID, vehicleModel, longitude, latitude, engineerName, engineerEmail)
+
+    db.session.add(new_maintenance)
+    db.session.commit()
+
+    return vehicle_schema.jsonify(new_maintenance)
+
 @api.route('/vehicle/<vehicleID>', methods=['PUT'])
 def update_vehicle(vehicleID):
     """
@@ -328,6 +391,13 @@ def get_vehicles():
 def get_records():
     all_records = Records.query.all()
     result = records_schema.dump(all_records)
+    return jsonify(result)
+
+# Endpoint to show all vehicles
+@api.route('/engineers', methods=["GET"])
+def get_engineers():
+    all_engineers = Engineer.query.all()
+    result = engineers_schema.dump(all_engineers)
     return jsonify(result)
 
 @api.route('/onlyVehicles', methods=["GET"])
