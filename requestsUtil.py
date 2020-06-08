@@ -19,6 +19,13 @@ class requestsUtil:
                 data_dict = json.loads(data)
                 return data_dict
         
+        def get_engineer(self, username):
+                result = "http://127.0.0.1:8000/engineer/" + username
+                response = requests.get(result)
+                data = response.content
+                data_dict = json.loads(data)
+                return data_dict
+                
         def get_user(self, id):
                 result = "http://127.0.0.1:8000/user/" + str(id)
                 response = requests.get(result)
@@ -68,6 +75,14 @@ class requestsUtil:
         
         def get_engineers(self):
                 result = "http://127.0.0.1:8000/engineers" 
+                response = requests.get(result)
+                data = response.content
+
+                data_dict = json.loads(data)
+                return data_dict
+        
+        def get_maintenance(self):
+                result = "http://127.0.0.1:8000/maintenance" 
                 response = requests.get(result)
                 data = response.content
 

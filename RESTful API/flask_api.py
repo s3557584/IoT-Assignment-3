@@ -229,12 +229,19 @@ only_vehicles_schema = OnlyVehicleSchema(many=True)
 update_add_user_Schema = UpdateAddUserSchema()
 update_add_vehicle_schema = UpdateAddVehicleSchema()
 maintenance_schema = MaintenanceSchema()
+maintenances_schema = MaintenanceSchema(many=True)
 
 # Endpoint to show all users.
 @api.route("/admin/<adminUsername>", methods = ["GET"])
 def get_admin(adminUsername):
     admin = Admin.query.get(adminUsername)
     return admin_schema.jsonify(admin)
+
+# Endpoint to show all users.
+@api.route("/engineer/<engineerUsername>", methods = ["GET"])
+def get_engineer(engineerUsername):
+    engineer = Engineer.query.get(engineerUsername)
+    return engineer_schema.jsonify(engineer)
 
 # Endpoint to show all users.
 @api.route("/user/<userID>", methods = ["GET"])
@@ -398,6 +405,13 @@ def get_records():
 def get_engineers():
     all_engineers = Engineer.query.all()
     result = engineers_schema.dump(all_engineers)
+    return jsonify(result)
+
+# Endpoint to show all vehicles
+@api.route('/maintenance', methods=["GET"])
+def get_maintenance():
+    all_maintenance = Maintenance.query.all()
+    result = maintenances_schema.dump(all_maintenance)
     return jsonify(result)
 
 @api.route('/onlyVehicles', methods=["GET"])

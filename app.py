@@ -39,6 +39,34 @@ def login():
     
     return render_template('login.html')
 
+@app.route('/login_engineer', methods=['GET', 'POST'])
+def login_engineer():
+    obj = requestsUtil()
+    if request.method == 'POST':
+        username = request.form['username']
+        password_candidate = request.form['password']
+
+        results = obj.get_engineer(username)
+        status = not bool(results) 
+        
+        if status != True:
+
+            decryptedPassword = obj.decryptPassword(results.get("engineerPassword"))
+
+            if decryptedPassword == password_candidate:
+                session['logged_in'] = True
+                session['username'] = username
+
+                flash('You are now logged in', 'success')
+                return redirect(url_for('vehicle_locations'))
+            else:
+                error = "Password incorrect!!!"
+                return render_template('login.html', error=error)
+        else:
+            return render_template('login.html', error=error)
+    
+    return render_template('login.html')
+
 # Check if user logged in
 def is_logged_in(f):
     @wraps(f)
@@ -294,6 +322,14 @@ def add_maintenance(vehicleID):
 
     return render_template('report_vehicle.html', form=form)
 
+@app.route("/vehicle_locations")
+def vehicle_locations():
+    username = session['username']
+    #obj = requestsUtil()
+    #results = obj.get_maintenance()
+    
+    return "<h1>"+username+"</h1>"
+    
 if __name__=='__main__':
     app.secret_key='secret123'
     app.run(debug=True)
