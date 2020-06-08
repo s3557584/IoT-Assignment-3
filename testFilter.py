@@ -89,6 +89,6 @@ tupleDropDownValue = [(val,val) for val in results]
 print(tupleDropDownValue)
 
 apiKey = "o.spfQSePwyGKGMeZG8DZxXZRJIMmSli0X"
-p = Pushbullet(apiKey)
+p = PushBullet(apiKey)
 
 p.pushNote('myemail@domain.com', 'Hello world', 'Test body', recipient_type='iot.assignment2020@gmail.com')

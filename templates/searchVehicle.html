@@ -46,6 +46,7 @@
 				<td>{{i['colour']}}</td>
 				<td>{{i['cost']}}</td>
 				<td><a href="edit_vehicle/{{i['vehicleID']}}" class="btn btn-default pullright">Edit</a></td >
+				<td><a href="report_vehicle/{{i['vehicleID']}}" class="btn btn-default pullright">Report</a></td >
 				<td>
 					<form action="{{url_for('deleteVehicle', vehicleID=i['vehicleID'])}}" method="post">
 						<input type="hidden" name="_method" value="DELETE">

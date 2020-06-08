@@ -3,7 +3,7 @@ from functools import wraps
 from wtforms import Form, StringField, TextAreaField, PasswordField, validators, SelectField
 from wtforms.validators import InputRequired
 from requestsUtil import requestsUtil
-from pushbullet.pushbullet import PushBullet
+from pushbullet import PushBullet
 
 app = Flask(__name__)
 
@@ -279,15 +279,15 @@ def add_maintenance(vehicleID):
         longitude = result['longitude']
         latitude = result['latitude']
         engineerName = request.form['engineerName']
-        engineerEmail = ""
+        engineerDevice = ""
         
         for i in engineerResult:
             if i['engineerUsername'] == engineerName:
-                engineerEmail = i['engineerEmail']
+                engineerDevice = i['engineerDevice']
 
-        obj.add_maintenance(vehicleID, vehicleModel, longitude, latitude, engineerName, engineerEmail)
-        p.pushNote(engineerEmail, 'Vehicle Required Maintenence', 'A vehicle has been assigned to you for maintenence', recipient_type='email')
-
+        obj.add_maintenance(vehicleID, vehicleModel, longitude, latitude, engineerName, engineerDevice)
+        dev = p.get_device('HUAWEI TAS-L29')
+        push = dev.push_note("NOTICE: ","A new vehicle has been assigned to you for maintenence!!")
         flash('Vehicle Reported', 'success')
 
         return redirect(url_for('dashboard'))

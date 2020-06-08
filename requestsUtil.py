@@ -84,9 +84,9 @@ class requestsUtil:
                 response = requests.post(url, json={'brand':brand,'colour':colour,'cost':cost,'latitude':None,'longitude':None,'status':True,'seats':seats,'id':None,'model':model})
                 print(response)
         
-        def add_maintenance(self, vehicleID, vehicleModel, longitude, latitude, engineerName, engineerEmail):
+        def add_maintenance(self, vehicleID, vehicleModel, longitude, latitude, engineerName, engineerDevice):
                 url = "http://127.0.0.1:8000/maintenance"
-                response = requests.post(url, json={'vehicleID':vehicleID,'model':vehicleModel,'longitude':longitude,'latitude':latitude,'engineerName':engineerName,'engineerEmail':engineerEmail})
+                response = requests.post(url, json={'vehicleID':vehicleID,'model':vehicleModel,'longitude':longitude,'latitude':latitude,'engineerName':engineerName,'engineerDevice':engineerDevice})
                 print(response)
         
         def delete_vehicle(self, id):

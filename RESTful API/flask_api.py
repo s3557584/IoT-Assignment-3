@@ -107,27 +107,27 @@ class Maintenance(db.Model):
     longitude = db.Column(db.Float)
     latitude = db.Column(db.Float)
     engineerName = db.Column(db.String(100))
-    engineerEmail = db.Column(db.String(100))
+    engineerDevice = db.Column(db.String(100))
     
-    def __init__(self, vehicleID, vehicleModel, longitude, latitude, engineerName, engineerEmail):
+    def __init__(self, vehicleID, vehicleModel, longitude, latitude, engineerName, engineerDevice):
         self.vehicleID = vehicleID
         self.vehicleModel = vehicleModel
         self.longitude = longitude
         self.latitude = latitude
         self.engineerName = engineerName
-        self.engineerEmail = engineerEmail
+        self.engineerDevice = engineerDevice
 
 class Engineer(db.Model):
     engineerUsername = db.Column(db.String(100), primary_key=True)
     engineerName = db.Column(db.String(100))
     engineerPassword = db.Column(db.String(1111))
-    engineerEmail = db.Column(db.String(100))
+    engineerDevice = db.Column(db.String(100))
     
-    def __init__(self, engineerUsername, engineerName, engineerPassword, engineerEmail):
+    def __init__(self, engineerUsername, engineerName, engineerPassword, engineerDevice):
         self.engineerUsername = engineerUsername
         self.engineerName = engineerName
         self.engineerPassword = engineerPassword
-        self.engineerEmail = engineerEmail
+        self.engineerDevice = engineerDevice
 
 class AdminSchema(ma.Schema):
     """
@@ -144,7 +144,7 @@ class EngineerSchema(ma.Schema):
     engineerUsername = fields.String(required=True)
     engineerName = fields.String(required=True)
     engineerPassword = fields.String(required=True)
-    engineerEmail = fields.String(required=True)
+    engineerDevice = fields.String(required=True)
 
 class UserSchema(ma.Schema):
     """
@@ -320,9 +320,9 @@ def add_maintenance():
     longitude = request.json['longitude']
     latitude = request.json['latitude']
     engineerName = request.json['engineerName']
-    engineerEmail = request.json['engineerEmail']
+    engineerDevice = request.json['engineerDevice']
 
-    new_maintenance = Maintenance(vehicleID, vehicleModel, longitude, latitude, engineerName, engineerEmail)
+    new_maintenance = Maintenance(vehicleID, vehicleModel, longitude, latitude, engineerName, engineerDevice)
 
     db.session.add(new_maintenance)
     db.session.commit()
