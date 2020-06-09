@@ -322,13 +322,54 @@ def add_maintenance(vehicleID):
 
     return render_template('report_vehicle.html', form=form)
 
+
+class Vehicle:
+    obj = requestsUtil()
+    results = obj.get_maintenance()
+    
+    longitude = []
+    latitude = []
+    vehicleModel = []
+
+    for i in results:
+        longitude.append(i['longitude'])
+        latitude.append(i['latitude'])
+        vehicleModel.append(i['vehicleModel'])
+    
+    zipped = zip(latitude, longitude, vehicleModel)
+
+    result_set = set(zipped)
+
+    latlng = [list(item) for item in result_set]
+
 @app.route("/vehicle_locations")
+@is_logged_in
 def vehicle_locations():
     username = session['username']
-    #obj = requestsUtil()
-    #results = obj.get_maintenance()
     
-    return "<h1>"+username+"</h1>"
+    obj = requestsUtil()
+    results = obj.get_maintenance()
+    
+    longitude = []
+    latitude = []
+    vehicleModel = []
+
+    for i in results:
+        if i['engineerName'] == username:
+            longitude.append(i['longitude'])
+            latitude.append(i['latitude'])
+            vehicleModel.append(i['vehicleModel'])
+    
+    zipped = zip(latitude, longitude, vehicleModel)
+
+    result_set = set(zipped)
+
+    latlng = [list(item) for item in result_set]
+
+    if latlng:
+        return render_template('map.html', latlng=latlng)
+    else:
+        abort(404)
     
 if __name__=='__main__':
     app.secret_key='secret123'

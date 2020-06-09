@@ -9,8 +9,6 @@ from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.fernet import Fernet
 import requests
 
-from pushbullet.pushbullet import PushBullet
-
 objRec = requestsUtil()
 data = objRec.get_users()
 
@@ -86,9 +84,21 @@ for i in result:
          results.append(i['engineerUsername'])
 
 tupleDropDownValue = [(val,val) for val in results]
-print(tupleDropDownValue)
 
-apiKey = "o.spfQSePwyGKGMeZG8DZxXZRJIMmSli0X"
-p = PushBullet(apiKey)
+obj = requestsUtil()
+results = obj.get_maintenance()
+    
+longitude = []
+latitude = []
+vehicleModel = []
 
-p.pushNote('myemail@domain.com', 'Hello world', 'Test body', recipient_type='iot.assignment2020@gmail.com')
+for i in results:
+        longitude.append(i['longitude'])
+        latitude.append(i['latitude'])
+        vehicleModel.append(i['vehicleModel'])
+    
+zipped = zip(latitude, longitude, vehicleModel)
+
+result_set = set(zipped)
+
+print(result_set)
