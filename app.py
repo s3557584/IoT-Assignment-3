@@ -87,7 +87,48 @@ def logout():
 @app.route('/dashboard')
 @is_logged_in
 def dashboard():
-    return render_template('dashboard.html')
+    titleBar='Brands of vehicle that customers prefer to rent(Number of Times)'
+    titleLine='Number of rentals for year 2019(Number of Rentals)'
+    titlePie='How many days customers usually rent a vehicle(Percentage %)'
+    bar_labels = [
+        'Toyota', 'Nissan', 'Honda', 'Ford',
+        'Mazda'
+    ]
+
+    bar_values = [
+        40, 20, 15, 35,
+        43
+    ]
+
+    colors = [
+        "#F7464A", "#46BFBD", "#FDB45C", "#FEDCBA",
+        "#ABCDEF", "#DDDDDD", "#ABCABC", "#4169E1",
+        "#C71585", "#FF4500", "#FEDCBA", "#46BFBD"]
+    
+    labels_line = [
+        'JAN', 'FEB', 'MAR', 'APR',
+        'MAY', 'JUN', 'JUL', 'AUG',
+        'SEP', 'OCT', 'NOV', 'DEC'
+    ]
+
+    values_line = [
+        30, 25, 20, 15,
+        35, 40, 44, 43,
+        20, 33, 42, 33
+    ]
+
+    values = [
+        60, 30, 10
+    ]
+
+    labels = [
+        '1 Day', '2 to 3 Days', 'More than 3 Days'
+    ]
+
+
+    bar_labels=bar_labels
+    bar_values=bar_values
+    return render_template('dashboard.html', titleBar=titleBar, titleLine=titleLine, titlePie=titlePie, max=50, pieMax=100, bar_labels=bar_labels, labels_line=labels_line, values_line=values_line, bar_values=bar_values, set=zip(values, labels, colors))
 
 class UserForm(Form):
     username = StringField('Username', [validators.length(min=1, max=50)])
