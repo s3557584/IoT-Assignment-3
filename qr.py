@@ -122,7 +122,7 @@ def a_register():
         return image
 
     def detect():
-        camera = cv2.VideoCapture(r'C:\Users\Administrator\Documents\Tencent Files\2879663097\FileRecv\MobileFile\SVID_20200104_214804_1.mp4')
+        camera = cv2.VideoCapture(r'C:\Users\10546\OneDrive\Desktop\id.mp4')
         while (1):
             ret, frame = camera.read()
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
