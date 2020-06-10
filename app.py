@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, url_for, flash, redirect
+from flask import Flask, render_template, request, session, url_for, flash, redirect, abort
 from functools import wraps
 from wtforms import Form, StringField, TextAreaField, PasswordField, validators, SelectField
 from wtforms.validators import InputRequired
@@ -11,12 +11,17 @@ app = Flask(__name__)
 def index():
     return render_template('home.html')
 
+class Login(Form):
+    username = StringField('Username:', validators=[InputRequired()])
+    password = PasswordField('Password:', validators=[InputRequired()])
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     obj = requestsUtil()
-    if request.method == 'POST':
-        username = request.form['username']
-        password_candidate = request.form['password']
+    form = Login(request.form)
+    if request.method == 'POST' and form.validate():
+        username = form.username.data
+        password_candidate = form.password.data
 
         results = obj.get_admin(username)
         status = not bool(results) 
@@ -33,18 +38,20 @@ def login():
                 return redirect(url_for('dashboard'))
             else:
                 error = "Password incorrect!!!"
-                return render_template('login.html', error=error)
+                return render_template('login.html', error=error, form=form)
         else:
-            return render_template('login.html', error=error)
+            error = "Username incorrect!!!"
+            return render_template('login.html', error=error, form=form)
     
-    return render_template('login.html')
+    return render_template('login.html', form=form)
 
 @app.route('/login_engineer', methods=['GET', 'POST'])
 def login_engineer():
     obj = requestsUtil()
-    if request.method == 'POST':
-        username = request.form['username']
-        password_candidate = request.form['password']
+    form = Login(request.form)
+    if request.method == 'POST' and form.validate():
+        username = form.username.data
+        password_candidate = form.password.data
 
         results = obj.get_engineer(username)
         status = not bool(results) 
@@ -61,11 +68,42 @@ def login_engineer():
                 return redirect(url_for('vehicle_locations'))
             else:
                 error = "Password incorrect!!!"
-                return render_template('login.html', error=error)
+                return render_template('login.html', error=error, form=form)
         else:
-            return render_template('login.html', error=error)
+            error = "Username incorrect!!!"
+            return render_template('login.html', error=error, form=form)
     
-    return render_template('login.html')
+    return render_template('login.html', form=form)
+
+@app.route('/login_manager', methods=['GET', 'POST'])
+def login_manager():
+    obj = requestsUtil()
+    form = Login(request.form)
+    if request.method == 'POST' and form.validate():
+        username = form.username.data
+        password_candidate = form.password.data
+
+        results = obj.get_manager(username)
+        status = not bool(results) 
+        
+        if status != True:
+
+            decryptedPassword = obj.decryptPassword(results.get("managerPassword"))
+
+            if decryptedPassword == password_candidate:
+                session['logged_in'] = True
+                session['username'] = username
+
+                flash('You are now logged in', 'success')
+                return redirect(url_for('manager_dashboard'))
+            else:
+                error = "Password incorrect!!!"
+                return render_template('login.html', error=error, form=form)
+        else:
+            error = "Username incorrect!!!"
+            return render_template('login.html', error=error, form=form)
+    
+    return render_template('login.html', form=form)
 
 # Check if user logged in
 def is_logged_in(f):
@@ -82,53 +120,12 @@ def is_logged_in(f):
 def logout():
     session.clear()
     flash('You are now logged out', 'success')
-    return redirect(url_for('login'))
+    return redirect(url_for('index'))
 
 @app.route('/dashboard')
 @is_logged_in
 def dashboard():
-    titleBar='Brands of vehicle that customers prefer to rent(Number of Times)'
-    titleLine='Number of rentals for year 2019(Number of Rentals)'
-    titlePie='How many days customers usually rent a vehicle(Percentage %)'
-    bar_labels = [
-        'Toyota', 'Nissan', 'Honda', 'Ford',
-        'Mazda'
-    ]
-
-    bar_values = [
-        40, 20, 15, 35,
-        43
-    ]
-
-    colors = [
-        "#F7464A", "#46BFBD", "#FDB45C", "#FEDCBA",
-        "#ABCDEF", "#DDDDDD", "#ABCABC", "#4169E1",
-        "#C71585", "#FF4500", "#FEDCBA", "#46BFBD"]
-    
-    labels_line = [
-        'JAN', 'FEB', 'MAR', 'APR',
-        'MAY', 'JUN', 'JUL', 'AUG',
-        'SEP', 'OCT', 'NOV', 'DEC'
-    ]
-
-    values_line = [
-        30, 25, 20, 15,
-        35, 40, 44, 43,
-        20, 33, 42, 33
-    ]
-
-    values = [
-        60, 30, 10
-    ]
-
-    labels = [
-        '1 Day', '2 to 3 Days', 'More than 3 Days'
-    ]
-
-
-    bar_labels=bar_labels
-    bar_values=bar_values
-    return render_template('dashboard.html', titleBar=titleBar, titleLine=titleLine, titlePie=titlePie, max=50, pieMax=100, bar_labels=bar_labels, labels_line=labels_line, values_line=values_line, bar_values=bar_values, set=zip(values, labels, colors))
+    return render_template('dashboard.html')
 
 class UserForm(Form):
     username = StringField('Username', [validators.length(min=1, max=50)])
@@ -411,6 +408,101 @@ def vehicle_locations():
         return render_template('map.html', latlng=latlng)
     else:
         abort(404)
+
+@app.route("/manager_dashboard")
+@is_logged_in
+def manager_dashboard():
+    obj = requestsUtil()
+    data = obj.get_records()
+    hondaCounter = 0
+    toyotaCounter = 0
+    nissanCounter = 0
+    fordCounter = 0
+    mazdaCounter= 0
+    onedayCounter = 0
+    twodayCounter = 0
+    fourdayCounter = 0
+
+    percentOne = 0
+    percentTwo = 0
+    percentFour = 0
+    total = 0
+
+    for i in data:
+        if i['vehicle']['vehicleBrand'] == 'Honda':
+            hondaCounter = hondaCounter + 1
+        elif i['vehicle']['vehicleBrand'] == 'Toyota':
+            toyotaCounter = toyotaCounter + 1
+    
+    for i in data:
+        if i['daysRented'] == 1:
+            onedayCounter = onedayCounter + 1
+        elif i['daysRented'] > 1 and i['daysRented'] < 4:
+            twodayCounter = twodayCounter + 1
+        elif i['daysRented'] > 4:
+            fourdayCounter = fourdayCounter + 1 
+
+    total = onedayCounter + twodayCounter+ fourdayCounter
+
+    percentOne = onedayCounter/total*1
+
+    percentTwo = twodayCounter/total*1
+    if fourdayCounter == 0:
+        percentFour = 0
+    else:
+        percentFour = fourdayCounter/total*1
+            
+    titleBar='Brands of vehicle that customers prefer to rent(Number of Times)'
+    titleLine='Number of rentals for year 2019(Number of Rentals)'
+    titlePie='How many days customers usually rent a vehicle(Percentage %)'
+    bar_labels = [
+        'Toyota', 'Nissan', 'Honda', 'Ford',
+        'Mazda'
+    ]
+    
+    bar_values = [
+        toyotaCounter, nissanCounter, hondaCounter, fordCounter,
+        mazdaCounter
+    ]
+
+    colors = [
+        "#F7464A", "#46BFBD", "#FDB45C", "#FEDCBA",
+        "#ABCDEF", "#DDDDDD", "#ABCABC", "#4169E1",
+        "#C71585", "#FF4500", "#FEDCBA", "#46BFBD"]
+    
+    labels_line = [
+        'JAN', 'FEB', 'MAR', 'APR',
+        'MAY', 'JUN', 'JUL', 'AUG',
+        'SEP', 'OCT', 'NOV', 'DEC'
+    ]
+
+    values_line = [
+        30, 25, 20, 15,
+        35, 40, 44, 43,
+        20, 33, 42, 33
+    ]
+
+    values = [
+        percentOne, percentTwo, percentFour
+    ]
+
+    labels = [
+        '1 Day', '2 to 3 Days', 'More than 3 Days'
+    ]
+
+
+    bar_labels=bar_labels
+    bar_values=bar_values
+    return render_template('manager_dashboard.html', titleBar=titleBar, titleLine=titleLine, titlePie=titlePie, max=max(toyotaCounter,nissanCounter,fordCounter,mazdaCounter,hondaCounter), maxLine=50, pieMax=100, bar_labels=bar_labels, labels_line=labels_line, values_line=values_line, bar_values=bar_values, set=zip(values, labels, colors))
+
+
+@app.route('/rental_records', methods=['GET', 'POST'])
+@is_logged_in
+def rental_records():
+   obj = requestsUtil()
+   recordsData = obj.get_records()
+
+   return render_template('rental_records.html', recordsData=recordsData)
     
 if __name__=='__main__':
     app.secret_key='secret123'

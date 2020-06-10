@@ -102,3 +102,9 @@ zipped = zip(latitude, longitude, vehicleModel)
 result_set = set(zipped)
 
 print(result_set)
+
+obj22 = requestsUtil()
+datarec = obj22.get_records()
+
+for i in datarec:
+        print(i['vehicle']['vehicleBrand'])

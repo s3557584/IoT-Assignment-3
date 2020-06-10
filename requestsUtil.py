@@ -25,6 +25,13 @@ class requestsUtil:
                 data = response.content
                 data_dict = json.loads(data)
                 return data_dict
+        
+        def get_manager(self, username):
+                result = "http://127.0.0.1:8000/manager/" + username
+                response = requests.get(result)
+                data = response.content
+                data_dict = json.loads(data)
+                return data_dict
                 
         def get_user(self, id):
                 result = "http://127.0.0.1:8000/user/" + str(id)

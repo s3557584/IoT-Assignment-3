@@ -93,12 +93,14 @@ class Records(db.Model):
     dateRented = db.Column(db.String(100))
     vehicleID = db.Column(db.Integer, db.ForeignKey('vehicle.vehicleID'), nullable=True)
     userID = db.Column(db.Integer, db.ForeignKey('user.userID'), nullable=True)
+    daysRented = db.Column(db.Integer)
     user = db.relationship("User", backref="userTable")
     vehicle = db.relationship("Vehicle", backref="vehicleTable")
-    def __init__(self, dateRented, vehicleID, userID):
+    def __init__(self, dateRented, vehicleID, userID, daysRented):
         self.dateRented = dateRented
         self.vehicleID = vehicleID
         self.userID = userID
+        self.daysRented = daysRented
 
 class Maintenance(db.Model):
     maintenanceID = db.Column(db.Integer, primary_key=True)
@@ -129,6 +131,16 @@ class Engineer(db.Model):
         self.engineerPassword = engineerPassword
         self.engineerDevice = engineerDevice
 
+class Manager(db.Model):
+    managerUsername = db.Column(db.String(100), primary_key=True)
+    managerName = db.Column(db.String(100))
+    managerPassword = db.Column(db.String(1111))
+    
+    def __init__(self, managerUsername, managerName, managerPassword):
+        self.managerUsername = managerUsername
+        self.managerName = managerName
+        self.managerPassword = managerPassword
+
 class AdminSchema(ma.Schema):
     """
     Admin Schema
@@ -145,6 +157,14 @@ class EngineerSchema(ma.Schema):
     engineerName = fields.String(required=True)
     engineerPassword = fields.String(required=True)
     engineerDevice = fields.String(required=True)
+
+class ManagerSchema(ma.Schema):
+    """
+    Admin Schema
+    """
+    managerUsername = fields.String(required=True)
+    managerName = fields.String(required=True)
+    managerPassword = fields.String(required=True)
 
 class UserSchema(ma.Schema):
     """
@@ -192,6 +212,7 @@ class OnlyVehicleSchema(ma.Schema):
 class RecordsSchema(ma.Schema):
     recordsID = fields.Integer()
     dateRented = fields.String(required=True)
+    daysRented = fields.Integer()
     vehicle = fields.Nested(VehicleSchema)
     user = fields.Nested(UserSchema)
 
@@ -221,6 +242,7 @@ vehicles_schema = VehicleSchema(many=True)
 user_schema = UserSchema()
 users_schema = UserSchema(many=True)
 admin_schema = AdminSchema()
+manager_schema = ManagerSchema()
 engineer_schema = EngineerSchema()
 engineers_schema = EngineerSchema(many=True)
 admins_schema = AdminSchema(many=True)
@@ -242,6 +264,11 @@ def get_admin(adminUsername):
 def get_engineer(engineerUsername):
     engineer = Engineer.query.get(engineerUsername)
     return engineer_schema.jsonify(engineer)
+
+@api.route("/manager/<managerUsername>", methods = ["GET"])
+def get_manager(managerUsername):
+    manager = Manager.query.get(managerUsername)
+    return manager_schema.jsonify(manager)
 
 # Endpoint to show all users.
 @api.route("/user/<userID>", methods = ["GET"])

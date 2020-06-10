@@ -8,10 +8,49 @@
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
   </head>
   <body>
-    {% include 'includes/_navbar.html' %}
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">MyFlaskApp</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            {% if session.logged_in %}
+              <li><a href="/logout">Logout</a></li>
+            {% endif %}
+
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
     <div class="container">
       {% include 'includes/_messages.html' %}
-      {% block body %}{% endblock %}
+      <h1 class="page-header">Welcome, {{session.username}} </h1>
+		<center>
+			<center>
+				<h2 class="page-header">{{ titleBar }}</h2>
+			</center>
+			<canvas id="chartBar" width="600" height="400"></canvas>
+			<center>
+				<h2 class="page-header">{{ titlePie }}</h2>
+			</center>
+			<canvas id="chart" width="600" height="400"></canvas>
+			<center>
+				<h2 class="page-header">{{ titleLine }}</h2>
+			</center>
+			<canvas id="chartLine" width="600" height="400"></canvas>
+		</center>
     </div>
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
