@@ -141,11 +141,12 @@ def a_register():
 def distinguish():
     window_distinguish = tk.Toplevel(window)
     # window_distinguish = tk.Tk()
-    window_distinguish.title('QRcode Identify sys')
+    window_distinguish.title('QRcode Identify SYS')
     window_distinguish.geometry('480x200')
     Label(window_distinguish, text='Plz enter the way you want to identify your QRcode：',font=('Arial',14)).place(x=10,y=5)
-    Button(window_distinguish, text='Real-time', font=('Arial', 16), fg='black', command=b_register).place(x=50, y=80)
-    Button(window_distinguish, text='video', font=('Arial', 16), fg='black', command=a_register).place(x=330, y=80)
+    Button(window_distinguish, text='Real-time', font=('Arial', 16), fg='black', command=b_register).place(x=70, y=80)
+    Button(window_distinguish, text='video', font=('Arial', 16), fg='black', command=a_register).place(x=300, y=80)
+    Button(window, text='Exit', width=10, command=window.quit).grid(row=3, column=1, sticky=E, padx=10, pady=5)
 
 tk.Button(window, text='QRcode identified', font=('Arial', 16), fg='red',command=distinguish).place(x=280, y=220)
 tk.Button(window, text='QRcode generated',font=('Arial',16),fg='green',command=sign_in).place(x=70,y=220)
