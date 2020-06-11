@@ -4,8 +4,8 @@ INTRODUCTION OF THE CAR AUTOMATIC SHARE SYSTEM
 
 PROJECT OVERVIEW
 
-The information technology nowadays is growth from time-to-time. Therefore, the demand for using the Internet is increasing year-by-year. Besides, most of the traditional companies are shifted their traditional business model into the modern business model, which is open an online store to public Internet users to purchase the goods or services online.
-The project background of the project is to develop an Online automatic Car Share System.; it combined with the reservation and informational report system. Hence, this system will be focusing on the customers who would like to reserve cars and appointments while the order will be providing higher value to the customers, either reserving or surfing the system through the website.
+The information technology nowadays is growth from time-to-time. Therefore, the demand for using the Internet is increasing year-by-year. Besides, most of the traditional companies are shifting their business model, which is opening an Web-base customer services to the public user onlin.
+The project bacis to develop an Online automatic Car Share System; it combined with the reservation and informational report system. Hence, this system will be focusing on the customers who would like to reserve cars and appointments while the order will be providing higher value to the customers, either reserving or surfing the system through the website.
 
 
 Abstract
