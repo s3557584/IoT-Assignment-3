@@ -41,7 +41,7 @@ def sign_in():
         plt.axis('off')  # xy off
         plt.show()
 
-    Button(root, text='Generate QRcode', width=10, command=show).grid(row=3, column=0, sticky=W, padx=10, pady=5)
+    Button(root, text='Generate QRcode', width=20, command=show).grid(row=3, column=0, sticky=W, padx=10, pady=5)
 
     Button(root, text='Exit', width=10, command=root.quit).grid(row=3, column=1, sticky=E, padx=10, pady=5)
 
