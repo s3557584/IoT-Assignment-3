@@ -14,8 +14,11 @@ The objective of the proposed Online automatic Car Share System., the users can 
 The proposed web-based system by the developer has the following features that will include in the Online Car Sharing System. With the proposed method, the achievable advantages are as follows:
 
 	View booking history and update personal information
+
 	View cars with affordable pricing
+
 	View cars locations
+
 	Report errors to the engineers if needed
 
 
@@ -24,6 +27,7 @@ FUNCTIONAL SPECIFICATIONS OF ONLINE CAR SHARE SYSTEM
 USER SPECIFICATION
 
 	Admin:
+
 Admin will be able to add a car, manage booking cars, and rent and view feedback and enquiry. Admin will keep track of each booking. Manage organisation representatives.
 Admin is responsible for any error in the system. So, he needs to alter at any point in time. Admin should keep tracking car renting service, maintenance of cars and report it to the engineer if it required.
 
