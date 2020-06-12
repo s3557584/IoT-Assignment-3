@@ -16,13 +16,14 @@ The objective of the proposed Online automatic Car Share System is to enable use
 
 FUNCTIONAL SPECIFICATIONS OF ONLINE CAR SHARE SYSTEM
 
-Three types of logins: Admin, Manager and Engineer
+	Three types of logins: Admin, Manager and Engineer
 
-Lay out of the Admin menu page
+	The layout of the Admin menu page
 
-Database and the tables in order to store info
+	Database and the tables to store info
 
-RESTful API
+	RESTful API
+
 
 
 
