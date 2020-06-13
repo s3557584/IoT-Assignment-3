@@ -1,0 +1,621 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>app module &#8212; IoTAssignment3  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="requestsUtil module" href="requestsUtil.html" />
+    <link rel="prev" title="IoTAssignment3" href="modules.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-app">
+<span id="app-module"></span><h1>app module<a class="headerlink" href="#module-app" title="Permalink to this headline">¶</a></h1>
+<p>Task A</p>
+<p>Written by Ching Loo s3557584
+app.py</p>
+<p>This file mainly has the code for the routes of the flask application.</p>
+<dl class="py class">
+<dt id="app.Login">
+<em class="property">class </em><code class="sig-prename descclassname">app.</code><code class="sig-name descname">Login</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.Login" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">wtforms.form.Form</span></code></p>
+<p>Login Class</p>
+<p>A form type class handles the input validation for login</p>
+<dl class="py attribute">
+<dt id="app.Login.password">
+<code class="sig-name descname">password</code><em class="property"> = &lt;UnboundField(PasswordField, ('Password:',), {'validators': [&lt;wtforms.validators.InputRequired object&gt;]})&gt;</em><a class="headerlink" href="#app.Login.password" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.Login.username">
+<code class="sig-name descname">username</code><em class="property"> = &lt;UnboundField(StringField, ('Username:',), {'validators': [&lt;wtforms.validators.InputRequired object&gt;]})&gt;</em><a class="headerlink" href="#app.Login.username" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="app.MaintenanceForm">
+<em class="property">class </em><code class="sig-prename descclassname">app.</code><code class="sig-name descname">MaintenanceForm</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.MaintenanceForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">wtforms.form.Form</span></code></p>
+<p>MaintenanceForm Class</p>
+<p>A form type class handles the input validation for report vehicle page</p>
+<dl class="py attribute">
+<dt id="app.MaintenanceForm.engineerName">
+<code class="sig-name descname">engineerName</code><em class="property"> = &lt;UnboundField(SelectField, ('Engineer',), {})&gt;</em><a class="headerlink" href="#app.MaintenanceForm.engineerName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="app.SearchUser">
+<em class="property">class </em><code class="sig-prename descclassname">app.</code><code class="sig-name descname">SearchUser</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.SearchUser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">wtforms.form.Form</span></code></p>
+<p>SearchUser Form Class</p>
+<p>A form type class handles the input validation for search user</p>
+<dl class="py attribute">
+<dt id="app.SearchUser.category">
+<code class="sig-name descname">category</code><em class="property"> = &lt;UnboundField(SelectField, ('Catergory',), {'choices': [('username', 'Username'), ('firstname', 'First Name'), ('surname', 'Surname')]})&gt;</em><a class="headerlink" href="#app.SearchUser.category" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.SearchUser.keyword">
+<code class="sig-name descname">keyword</code><em class="property"> = &lt;UnboundField(StringField, ('Enter Keyword:',), {'validators': [&lt;wtforms.validators.InputRequired object&gt;]})&gt;</em><a class="headerlink" href="#app.SearchUser.keyword" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="app.SearchVehicle">
+<em class="property">class </em><code class="sig-prename descclassname">app.</code><code class="sig-name descname">SearchVehicle</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.SearchVehicle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">wtforms.form.Form</span></code></p>
+<p>SearchVehicle Form Class</p>
+<p>A form type class handles the input validation for search Vehicle</p>
+<dl class="py attribute">
+<dt id="app.SearchVehicle.category">
+<code class="sig-name descname">category</code><em class="property"> = &lt;UnboundField(SelectField, ('Catergory',), {'choices': [('colour', 'Colour'), ('vehicleBrand', 'Brand'), ('vehicleModel', 'Model')]})&gt;</em><a class="headerlink" href="#app.SearchVehicle.category" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.SearchVehicle.keyword">
+<code class="sig-name descname">keyword</code><em class="property"> = &lt;UnboundField(StringField, ('Enter Keyword:',), {'validators': [&lt;wtforms.validators.InputRequired object&gt;]})&gt;</em><a class="headerlink" href="#app.SearchVehicle.keyword" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="app.UserForm">
+<em class="property">class </em><code class="sig-prename descclassname">app.</code><code class="sig-name descname">UserForm</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.UserForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">wtforms.form.Form</span></code></p>
+<p>UserForm Class</p>
+<p>A form type class handles the input validation for add user</p>
+<dl class="py attribute">
+<dt id="app.UserForm.firstname">
+<code class="sig-name descname">firstname</code><em class="property"> = &lt;UnboundField(StringField, ('First Name', [&lt;wtforms.validators.Length object&gt;]), {})&gt;</em><a class="headerlink" href="#app.UserForm.firstname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.UserForm.imageName">
+<code class="sig-name descname">imageName</code><em class="property"> = &lt;UnboundField(StringField, ('Image Name', [&lt;wtforms.validators.Length object&gt;]), {})&gt;</em><a class="headerlink" href="#app.UserForm.imageName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.UserForm.password">
+<code class="sig-name descname">password</code><em class="property"> = &lt;UnboundField(StringField, ('Password', [&lt;wtforms.validators.Length object&gt;]), {})&gt;</em><a class="headerlink" href="#app.UserForm.password" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.UserForm.surname">
+<code class="sig-name descname">surname</code><em class="property"> = &lt;UnboundField(StringField, ('Surname', [&lt;wtforms.validators.Length object&gt;]), {})&gt;</em><a class="headerlink" href="#app.UserForm.surname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.UserForm.username">
+<code class="sig-name descname">username</code><em class="property"> = &lt;UnboundField(StringField, ('Username', [&lt;wtforms.validators.Length object&gt;]), {})&gt;</em><a class="headerlink" href="#app.UserForm.username" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="app.Vehicle">
+<em class="property">class </em><code class="sig-prename descclassname">app.</code><code class="sig-name descname">Vehicle</code><a class="headerlink" href="#app.Vehicle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt id="app.Vehicle.i">
+<code class="sig-name descname">i</code><em class="property"> = {'engineerDeviceID': '44:D7:91:52:1F:1E', 'engineerName': 'TestEngineer', 'latitude': -37.808205, 'longitude': 144.974808, 'vehicleID': 1, 'vehicleModel': 'Altis'}</em><a class="headerlink" href="#app.Vehicle.i" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.Vehicle.latitude">
+<code class="sig-name descname">latitude</code><em class="property"> = [-37.803913, -37.808205]</em><a class="headerlink" href="#app.Vehicle.latitude" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.Vehicle.latlng">
+<code class="sig-name descname">latlng</code><em class="property"> = [[-37.808205, 144.974808, 'Altis'], [-37.803913, 144.964859, 'CRZ']]</em><a class="headerlink" href="#app.Vehicle.latlng" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.Vehicle.longitude">
+<code class="sig-name descname">longitude</code><em class="property"> = [144.964859, 144.974808]</em><a class="headerlink" href="#app.Vehicle.longitude" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.Vehicle.obj">
+<code class="sig-name descname">obj</code><em class="property"> = &lt;requestsUtil.requestsUtil object&gt;</em><a class="headerlink" href="#app.Vehicle.obj" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.Vehicle.result_set">
+<code class="sig-name descname">result_set</code><em class="property"> = {(-37.808205, 144.974808, 'Altis'), (-37.803913, 144.964859, 'CRZ')}</em><a class="headerlink" href="#app.Vehicle.result_set" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.Vehicle.results">
+<code class="sig-name descname">results</code><em class="property"> = [{'engineerDeviceID': None, 'engineerName': 'TestEngineer', 'latitude': -37.803913, 'longitude': 144.964859, 'vehicleID': 4, 'vehicleModel': 'CRZ'}, {'engineerDeviceID': '44:D7:91:52:1F:1E', 'engineerName': 'TestEngineer', 'latitude': -37.808205, 'longitude': 144.974808, 'vehicleID': 1, 'vehicleModel': 'Altis'}]</em><a class="headerlink" href="#app.Vehicle.results" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.Vehicle.vehicleModel">
+<code class="sig-name descname">vehicleModel</code><em class="property"> = ['CRZ', 'Altis']</em><a class="headerlink" href="#app.Vehicle.vehicleModel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.Vehicle.zipped">
+<code class="sig-name descname">zipped</code><em class="property"> = &lt;zip object&gt;</em><a class="headerlink" href="#app.Vehicle.zipped" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="app.VehicleForm">
+<em class="property">class </em><code class="sig-prename descclassname">app.</code><code class="sig-name descname">VehicleForm</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.VehicleForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">wtforms.form.Form</span></code></p>
+<dl class="py attribute">
+<dt id="app.VehicleForm.brand">
+<code class="sig-name descname">brand</code><em class="property"> = &lt;UnboundField(StringField, ('Brand', [&lt;wtforms.validators.Length object&gt;]), {})&gt;</em><a class="headerlink" href="#app.VehicleForm.brand" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.VehicleForm.colour">
+<code class="sig-name descname">colour</code><em class="property"> = &lt;UnboundField(StringField, ('Colour', [&lt;wtforms.validators.Length object&gt;]), {})&gt;</em><a class="headerlink" href="#app.VehicleForm.colour" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.VehicleForm.cost">
+<code class="sig-name descname">cost</code><em class="property"> = &lt;UnboundField(SelectField, ('Cost',), {'choices': [('15', '15'), ('20', '20'), ('25', '25')]})&gt;</em><a class="headerlink" href="#app.VehicleForm.cost" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.VehicleForm.model">
+<code class="sig-name descname">model</code><em class="property"> = &lt;UnboundField(StringField, ('Model', [&lt;wtforms.validators.Length object&gt;]), {})&gt;</em><a class="headerlink" href="#app.VehicleForm.model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.VehicleForm.seats">
+<code class="sig-name descname">seats</code><em class="property"> = &lt;UnboundField(SelectField, ('Seats',), {'choices': [('2', '2'), ('4', '4'), ('7', '7')]})&gt;</em><a class="headerlink" href="#app.VehicleForm.seats" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="app.add_maintenance">
+<code class="sig-prename descclassname">app.</code><code class="sig-name descname">add_maintenance</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.add_maintenance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Route for report vehicle page of the website</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vehicleID</strong> (<em>Integer</em>) – Vehicle ID from the database</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Redirect to Admin dashboard
+return render_template(‘report_vehicle.html’, form=form): Render the report vehicle HTML page</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return redirect(url_for(‘dashboard’))</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="app.add_user">
+<code class="sig-prename descclassname">app.</code><code class="sig-name descname">add_user</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.add_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Route for add user page of the website</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Redirects to the dashboard page
+return render_template(‘add_user.html’, form=form): Render the add user HTML page</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return redirect(url_for(‘dashboard’))</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="app.add_vehicle">
+<code class="sig-prename descclassname">app.</code><code class="sig-name descname">add_vehicle</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.add_vehicle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Route for add vehicle page of the website</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Redirects to the dashboard page
+return render_template(‘add_vehicle.html’, form=form): Render the add vehicle HTML page</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return redirect(url_for(‘dashboard’))</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="app.dashboard">
+<code class="sig-prename descclassname">app.</code><code class="sig-name descname">dashboard</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.dashboard" title="Permalink to this definition">¶</a></dt>
+<dd><p>Route for dashboard page of the website</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Renders html template for the admin dashboard page of the website</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>render_template(‘home.html’)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="app.deleteUser">
+<code class="sig-prename descclassname">app.</code><code class="sig-name descname">deleteUser</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.deleteUser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Route for delete user page of the website</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>userID</strong> (<em>Integer</em>) – User ID from database.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Redirect to Admin dashboard page</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return redirect(url_for(‘dashboard’))</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="app.deleteVehicle">
+<code class="sig-prename descclassname">app.</code><code class="sig-name descname">deleteVehicle</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.deleteVehicle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Route for delete vehicle page of the website</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vehicleID</strong> (<em>Integer</em>) – Vehicle ID from database.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Redirect to Admin dashboard page</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return redirect(url_for(‘dashboard’))</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="app.edit_user">
+<code class="sig-prename descclassname">app.</code><code class="sig-name descname">edit_user</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.edit_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Route for edit user page of the website</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>userID</strong> (<em>Integer</em>) – User ID from database</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Redirects to the dashboard page
+return render_template(‘edit_user.html’, form=form): Render the edit user HTML page</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return redirect(url_for(‘dashboard’))</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="app.edit_vehicle">
+<code class="sig-prename descclassname">app.</code><code class="sig-name descname">edit_vehicle</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.edit_vehicle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Route for edit user page of the website</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vehicleID</strong> (<em>Integer</em>) – Vehicle ID from the database</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Redirects to the dashboard page
+return render_template(‘edit_vehicle.html’, form=form): Render the edit vehicle HTML page</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return redirect(url_for(‘dashboard’))</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="app.index">
+<code class="sig-prename descclassname">app.</code><code class="sig-name descname">index</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Route for Index page of the website</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Renders html template for the index page of the website</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>render_template(‘home.html’)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="app.is_logged_in">
+<code class="sig-prename descclassname">app.</code><code class="sig-name descname">is_logged_in</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">f</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.is_logged_in" title="Permalink to this definition">¶</a></dt>
+<dd><p>A function to check if the current user is still logged in to the website</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="app.login">
+<code class="sig-prename descclassname">app.</code><code class="sig-name descname">login</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.login" title="Permalink to this definition">¶</a></dt>
+<dd><p>Route for Admin login page of the website.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Renders the HTML login page</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>render_template(‘login.html’, form=form)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="app.login_engineer">
+<code class="sig-prename descclassname">app.</code><code class="sig-name descname">login_engineer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.login_engineer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Route for Engineer login page of the website.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Renders the HTML login page</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>render_template(‘login.html’, form=form)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="app.login_manager">
+<code class="sig-prename descclassname">app.</code><code class="sig-name descname">login_manager</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.login_manager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Route for Manager login page of the website.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Renders the HTML login page</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>render_template(‘login.html’, form=form)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="app.logout">
+<code class="sig-prename descclassname">app.</code><code class="sig-name descname">logout</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.logout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Route for logout.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Redirects the user back to the index page after logging out.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>redirect(url_for(‘index’))</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="app.manager_dashboard">
+<code class="sig-prename descclassname">app.</code><code class="sig-name descname">manager_dashboard</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.manager_dashboard" title="Permalink to this definition">¶</a></dt>
+<dd><p>Route for manager dashboard page of the website</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Render the dashboard for manager</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return render_template(‘manager_dashboard.html’)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="app.rental_records">
+<code class="sig-prename descclassname">app.</code><code class="sig-name descname">rental_records</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.rental_records" title="Permalink to this definition">¶</a></dt>
+<dd><p>Route for rental records page of the website</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Render the rental records page for the site</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return render_template(‘rental_records.html’, recordsData=recordsData)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="app.searchUser">
+<code class="sig-prename descclassname">app.</code><code class="sig-name descname">searchUser</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.searchUser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Route for search user page of the website</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Render the search user HTML page</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return render_template(‘searchUser.html’, data=data, form=form, error=error)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="app.searchVehicle">
+<code class="sig-prename descclassname">app.</code><code class="sig-name descname">searchVehicle</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.searchVehicle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Route for search vehicle page of the website</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Render the search vehicle HTML page</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return render_template(‘searchVehicle.html’, data=data, form=form, error=error)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="app.vehicle_locations">
+<code class="sig-prename descclassname">app.</code><code class="sig-name descname">vehicle_locations</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.vehicle_locations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Route for vehicle location page of the website</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Redirect to Admin dashboard
+return render_template(‘report_vehicle.html’, form=form): Render the report vehicle HTML page</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return redirect(url_for(‘dashboard’))</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">IoTAssignment3</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">IoTAssignment3</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">app module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="requestsUtil.html">requestsUtil module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unit_tests.html">unit_tests module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unit_tests_flask.html">unit_tests_flask module</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">IoTAssignment3</a><ul>
+      <li>Previous: <a href="modules.html" title="previous chapter">IoTAssignment3</a></li>
+      <li>Next: <a href="requestsUtil.html" title="next chapter">requestsUtil module</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Ching, Lin, Jason, Stuart.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/app.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

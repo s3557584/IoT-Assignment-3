@@ -1,0 +1,503 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>requestsUtil module &#8212; IoTAssignment3  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="unit_tests module" href="unit_tests.html" />
+    <link rel="prev" title="app module" href="app.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-requestsUtil">
+<span id="requestsutil-module"></span><h1>requestsUtil module<a class="headerlink" href="#module-requestsUtil" title="Permalink to this headline">¶</a></h1>
+<p>Task A</p>
+<p>Written by Ching Loo s3557584</p>
+<p>requestUtil class</p>
+<p>This class mainly has the code for handling GET,POST,PUT and DELETE requests through the RESTful API</p>
+<dl class="py class">
+<dt id="requestsUtil.requestsUtil">
+<em class="property">class </em><code class="sig-prename descclassname">requestsUtil.</code><code class="sig-name descname">requestsUtil</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">url</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#requestsUtil.requestsUtil" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="requestsUtil.requestsUtil.add_maintenance">
+<code class="sig-name descname">add_maintenance</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vehicleID</span></em>, <em class="sig-param"><span class="n">vehicleModel</span></em>, <em class="sig-param"><span class="n">longitude</span></em>, <em class="sig-param"><span class="n">latitude</span></em>, <em class="sig-param"><span class="n">engineerName</span></em>, <em class="sig-param"><span class="n">engineerDevice</span></em>, <em class="sig-param"><span class="n">engineerDeviceID</span></em><span class="sig-paren">)</span><a class="headerlink" href="#requestsUtil.requestsUtil.add_maintenance" title="Permalink to this definition">¶</a></dt>
+<dd><p>add_maintenance function: Makes a POST request to API to add maintenance data in database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vehicleID</strong> (<em>Integer</em>) – Vehicle ID</p></li>
+<li><p><strong>longitude</strong> (<em>float</em>) – Longitude location of vehicle</p></li>
+<li><p><strong>latitude</strong> (<em>float</em>) – Latitude location of vehicle</p></li>
+<li><p><strong>engineerName</strong> (<em>str</em>) – Engineer Username</p></li>
+<li><p><strong>engineerDevice</strong> (<em>str</em>) – Engineer mobile device name</p></li>
+<li><p><strong>engineerDeviceID</strong> (<em>Integer</em>) – MAC address of engineer’s device</p></li>
+<li><p><strong>vehicleModel</strong> (<em>str</em>) – Vehicle model</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="requestsUtil.requestsUtil.add_user">
+<code class="sig-name descname">add_user</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">username</span></em>, <em class="sig-param"><span class="n">firstname</span></em>, <em class="sig-param"><span class="n">surname</span></em>, <em class="sig-param"><span class="n">password</span></em>, <em class="sig-param"><span class="n">imageName</span></em><span class="sig-paren">)</span><a class="headerlink" href="#requestsUtil.requestsUtil.add_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>add_user function: Makes a POST request to API to insert user data in database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>Integer</em>) – user ID</p></li>
+<li><p><strong>username</strong> (<em>str</em>) – User username</p></li>
+<li><p><strong>firstname</strong> (<em>str</em>) – User first name</p></li>
+<li><p><strong>surname</strong> (<em>str</em>) – User surname</p></li>
+<li><p><strong>password</strong> (<em>str</em>) – User password</p></li>
+<li><p><strong>imageName</strong> (<em>str</em>) – User image name</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="requestsUtil.requestsUtil.add_vehicle">
+<code class="sig-name descname">add_vehicle</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">brand</span></em>, <em class="sig-param"><span class="n">colour</span></em>, <em class="sig-param"><span class="n">cost</span></em>, <em class="sig-param"><span class="n">seats</span></em>, <em class="sig-param"><span class="n">model</span></em><span class="sig-paren">)</span><a class="headerlink" href="#requestsUtil.requestsUtil.add_vehicle" title="Permalink to this definition">¶</a></dt>
+<dd><p>add_vehicle function: Makes a POST request to API to add vehicle data in database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>Integer</em>) – Vehicle ID</p></li>
+<li><p><strong>brand</strong> (<em>str</em>) – Vehicle brand</p></li>
+<li><p><strong>colour</strong> (<em>str</em>) – Vehicle colour</p></li>
+<li><p><strong>cost</strong> (<em>Integer</em>) – Vehicle rental rate</p></li>
+<li><p><strong>seats</strong> (<em>Integer</em>) – Vehicle number of seats</p></li>
+<li><p><strong>model</strong> (<em>str</em>) – Vehicle model</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="requestsUtil.requestsUtil.decryptPassword">
+<code class="sig-name descname">decryptPassword</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">encrypted_password</span></em><span class="sig-paren">)</span><a class="headerlink" href="#requestsUtil.requestsUtil.decryptPassword" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to decrypt encrypted password</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>encrypted_password</strong> (<em>byte</em>) – ciphertext password from database</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>plaintext password</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>password(str)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="requestsUtil.requestsUtil.delete_user">
+<code class="sig-name descname">delete_user</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#requestsUtil.requestsUtil.delete_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>delete_user function: Makes a DELETE request to API to delete user data from database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>Integer</em>) – User ID</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="requestsUtil.requestsUtil.delete_vehicle">
+<code class="sig-name descname">delete_vehicle</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#requestsUtil.requestsUtil.delete_vehicle" title="Permalink to this definition">¶</a></dt>
+<dd><p>delete_vehicle function: Makes a DELETE request to API to delete vehicle data from database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>Integer</em>) – Vehicle ID</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="requestsUtil.requestsUtil.encryptPassword">
+<code class="sig-name descname">encryptPassword</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">password</span></em><span class="sig-paren">)</span><a class="headerlink" href="#requestsUtil.requestsUtil.encryptPassword" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to encrypt password</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>password</strong> (<em>str</em>) – Plaintext password from user input</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Encrypted password</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>encrypted(byte)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="requestsUtil.requestsUtil.generate_key">
+<code class="sig-name descname">generate_key</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#requestsUtil.requestsUtil.generate_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>generate_key function to generate key for encryption and decryption</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>key generate to use for encryption and decryption</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>key(bytes)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="requestsUtil.requestsUtil.get_admin">
+<code class="sig-name descname">get_admin</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">username</span></em><span class="sig-paren">)</span><a class="headerlink" href="#requestsUtil.requestsUtil.get_admin" title="Permalink to this definition">¶</a></dt>
+<dd><p>get_admin function: Makes a GET request to API to retrieve admin data from database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>username</strong> (<em>str</em>) – admin username</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>GET request result</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return data_dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="requestsUtil.requestsUtil.get_engineer">
+<code class="sig-name descname">get_engineer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">username</span></em><span class="sig-paren">)</span><a class="headerlink" href="#requestsUtil.requestsUtil.get_engineer" title="Permalink to this definition">¶</a></dt>
+<dd><p>get_engineer function: Makes a GET request to API to retrieve engineer data from database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>username</strong> (<em>str</em>) – engineer username</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>GET request result</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return data_dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="requestsUtil.requestsUtil.get_engineers">
+<code class="sig-name descname">get_engineers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#requestsUtil.requestsUtil.get_engineers" title="Permalink to this definition">¶</a></dt>
+<dd><p>get_engineers function: Makes a GET request to API to retrieve all engineers data from database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>GET request result</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return data_dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="requestsUtil.requestsUtil.get_maintenance">
+<code class="sig-name descname">get_maintenance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#requestsUtil.requestsUtil.get_maintenance" title="Permalink to this definition">¶</a></dt>
+<dd><p>get_maintenance function: Makes a GET request to API to retrieve all maintenance data from database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>GET request result</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return data_dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="requestsUtil.requestsUtil.get_manager">
+<code class="sig-name descname">get_manager</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">username</span></em><span class="sig-paren">)</span><a class="headerlink" href="#requestsUtil.requestsUtil.get_manager" title="Permalink to this definition">¶</a></dt>
+<dd><p>get_manager function: Makes a GET request to API to retrieve manager data from database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>username</strong> (<em>str</em>) – manager username</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>GET request result</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return data_dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="requestsUtil.requestsUtil.get_records">
+<code class="sig-name descname">get_records</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#requestsUtil.requestsUtil.get_records" title="Permalink to this definition">¶</a></dt>
+<dd><p>get_records function: Makes a GET request to API to retrieve rental records data from database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>GET request result</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return data_dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="requestsUtil.requestsUtil.get_user">
+<code class="sig-name descname">get_user</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#requestsUtil.requestsUtil.get_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>get_user function: Makes a GET request to API to retrieve user data from database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>Integer</em>) – user ID</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>GET request result</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return data_dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="requestsUtil.requestsUtil.get_users">
+<code class="sig-name descname">get_users</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#requestsUtil.requestsUtil.get_users" title="Permalink to this definition">¶</a></dt>
+<dd><p>get_users function: Makes a GET request to API to retrieve all users data from database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>GET request result</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return data_dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="requestsUtil.requestsUtil.get_vehicle">
+<code class="sig-name descname">get_vehicle</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#requestsUtil.requestsUtil.get_vehicle" title="Permalink to this definition">¶</a></dt>
+<dd><p>get_vehicle function: Makes a GET request to API to retrieve vehicle data from database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>Integer</em>) – vehicle ID</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>GET request result</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return data_dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="requestsUtil.requestsUtil.get_vehicles">
+<code class="sig-name descname">get_vehicles</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#requestsUtil.requestsUtil.get_vehicles" title="Permalink to this definition">¶</a></dt>
+<dd><p>get_vehicles function: Makes a GET request to API to retrieve all vehicle data from database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>GET request result</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>return data_dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="requestsUtil.requestsUtil.search">
+<code class="sig-name descname">search</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">field</span></em>, <em class="sig-param"><span class="n">responseData</span></em><span class="sig-paren">)</span><a class="headerlink" href="#requestsUtil.requestsUtil.search" title="Permalink to this definition">¶</a></dt>
+<dd><p>search function to filter data from dictionary</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – username</p></li>
+<li><p><strong>field</strong> (<em>str</em>) – category</p></li>
+<li><p><strong>respondData</strong> (<em>dictionary</em>) – Dictionary result from API requests</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns filtered result</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>results(dictionary)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="requestsUtil.requestsUtil.update_user">
+<code class="sig-name descname">update_user</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">id</span></em>, <em class="sig-param"><span class="n">username</span></em>, <em class="sig-param"><span class="n">firstname</span></em>, <em class="sig-param"><span class="n">surname</span></em>, <em class="sig-param"><span class="n">password</span></em>, <em class="sig-param"><span class="n">imageName</span></em><span class="sig-paren">)</span><a class="headerlink" href="#requestsUtil.requestsUtil.update_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>update_user function: Makes a PUT request to API to update user data in database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>Integer</em>) – user ID</p></li>
+<li><p><strong>username</strong> (<em>str</em>) – User username</p></li>
+<li><p><strong>firstname</strong> (<em>str</em>) – User first name</p></li>
+<li><p><strong>surname</strong> (<em>str</em>) – User surname</p></li>
+<li><p><strong>password</strong> (<em>str</em>) – User password</p></li>
+<li><p><strong>imageName</strong> (<em>str</em>) – User image name</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="requestsUtil.requestsUtil.update_vehicle">
+<code class="sig-name descname">update_vehicle</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">id</span></em>, <em class="sig-param"><span class="n">brand</span></em>, <em class="sig-param"><span class="n">colour</span></em>, <em class="sig-param"><span class="n">cost</span></em>, <em class="sig-param"><span class="n">seats</span></em>, <em class="sig-param"><span class="n">model</span></em><span class="sig-paren">)</span><a class="headerlink" href="#requestsUtil.requestsUtil.update_vehicle" title="Permalink to this definition">¶</a></dt>
+<dd><p>update_vehicle function: Makes a PUT request to API to update vehicle data in database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>Integer</em>) – Vehicle ID</p></li>
+<li><p><strong>brand</strong> (<em>str</em>) – Vehicle brand</p></li>
+<li><p><strong>colour</strong> (<em>str</em>) – Vehicle colour</p></li>
+<li><p><strong>cost</strong> (<em>Integer</em>) – Vehicle rental rate</p></li>
+<li><p><strong>seats</strong> (<em>Integer</em>) – Vehicle number of seats</p></li>
+<li><p><strong>model</strong> (<em>str</em>) – Vehicle model</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">IoTAssignment3</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">IoTAssignment3</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="app.html">app module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">requestsUtil module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unit_tests.html">unit_tests module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unit_tests_flask.html">unit_tests_flask module</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">IoTAssignment3</a><ul>
+      <li>Previous: <a href="app.html" title="previous chapter">app module</a></li>
+      <li>Next: <a href="unit_tests.html" title="next chapter">unit_tests module</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Ching, Lin, Jason, Stuart.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/requestsUtil.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
