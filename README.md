@@ -31,4 +31,4 @@ FUNCTIONAL SPECIFICATIONS OF ONLINE CAR SHARE SYSTEM
 	Object-detection console-based system base on QRcode
 
 
-Trello board here:https://trello.com/b/2ZQiRWrS/assignment-3
+Trello board here: https://trello.com/b/2ZQiRWrS/assignment-3
