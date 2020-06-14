@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "c:\\Users\\CY\\Documents\\IoTAssignment3\\env\\Scripts\\python.exe"
+    "python.pythonPath": "C:\\Users\\CY\\AppData\\Local\\Programs\\Python\\Python38\\python.exe",
+    "git.ignoreLimitWarning": true
 }
