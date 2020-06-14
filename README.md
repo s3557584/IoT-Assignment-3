@@ -12,7 +12,7 @@ Abstract
 The objective of the proposed Online automatic Car Share System is to enable users’ ability to searching and to book their favourite cars by its brand, colour or even IDs quickly through the Internet, and it can be accessed anywhere anytime in the World. Therefore, the company can significantly improve its customer satisfaction level, increasing efficiency by provides better services to its customer.
 
 
-FUNCTIONAL SPECIFICATIONS OF ONLINE CAR SHARE SYSTEM
+FUNCTIONAL SPECIFICATIONS OF THE ONLINE CAR SHARE SYSTEM
 
 	Three types of logins: Admin, Manager and Engineer
 
