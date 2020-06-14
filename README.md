@@ -24,7 +24,11 @@ FUNCTIONAL SPECIFICATIONS OF ONLINE CAR SHARE SYSTEM
 
 	RESTful API
 
+	Automatic identification system by using Bluetooth in AP
+
+	Voice/search feature to search the cars
+
+	Object-detection console-based system base on QRcode
 
 
-
-https://trello.com/b/2ZQiRWrS/assignment-3
+Trello board here:https://trello.com/b/2ZQiRWrS/assignment-3
