@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>Google Map API</title>
+    <style>
+      #map {
+        height: 75%;
+      }
+      html, body {
+        height: 100%;
+        margin: 10px;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+	<nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">MyFlaskApp</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            {% if session.logged_in %}
+              <li><a href="/logout">Logout</a></li>
+            {% endif %}
+
+          </ul>
+        </div><!--/.nav-collapse -->
+    </nav>
+	<h1 class="page-header">Welcome, {{session.username}}. These are the vehicle locations</h1>
+    <div id="map"></div>
+    <script>
+
+      function initMap() {
+        var i;
+        var lat = {{latlng|tojson|safe}};
+        
+        var myLatLng = new google.maps.LatLng(lat[0][0], lat[0][1]);
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 16,
+          center: myLatLng
+        });
+        for(i=0; i<lat.length; i++){
+            var marker = new google.maps.Marker({
+              position: new google.maps.LatLng(lat[i][0], lat[i][1]),
+              map: map,
+              title: lat[i][2]
+            });
+        }
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap">
+    </script>
+  </body>
+</html>

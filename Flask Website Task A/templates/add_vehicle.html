@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  <h1>Add Vehicle</h1>
+  {% from "includes/_formhelpers.html" import render_field %}
+  <form method="POST" action="">
+    <div class="form-group">
+      {{ render_field(form.brand, class_="form-control") }}
+    </div>
+    <div class="form-group">
+      {{ render_field(form.colour, class_="form-control") }}
+    </div>
+	<div class="form-group">
+	  {{ render_field(form.cost, class_="form-control") }}
+    </div>
+	<div class="form-group">
+	  {{ render_field(form.seats, class_="form-control") }}
+    </div>
+	<div class="form-group">
+      {{ render_field(form.model, class_="form-control") }}
+    </div>
+    <p><input class="btn btn-primary" type="submit" value="Submit">
+  </form>
+{% endblock %}
