@@ -32,7 +32,7 @@ ma = Marshmallow(app)
 
 class Admin(db.Model):
     """
-    User Class/Model
+    Admin Class/Model
     """
     adminUsername = db.Column(db.String(100), primary_key=True)
     adminName = db.Column(db.String(100))
@@ -89,6 +89,9 @@ class Vehicle(db.Model):
         self.userID = userID
 
 class Records(db.Model):
+    """
+    Records Class/Model
+    """
     recordsID = db.Column(db.Integer, primary_key=True)
     dateRented = db.Column(db.String(100))
     vehicleID = db.Column(db.Integer, db.ForeignKey('vehicle.vehicleID'), nullable=True)
@@ -103,6 +106,9 @@ class Records(db.Model):
         self.daysRented = daysRented
 
 class Maintenance(db.Model):
+    """
+    Maintenance Class/Model
+    """
     maintenanceID = db.Column(db.Integer, primary_key=True)
     vehicleID = db.Column(db.Integer)
     vehicleModel = db.Column(db.String(100))
@@ -110,28 +116,38 @@ class Maintenance(db.Model):
     latitude = db.Column(db.Float)
     engineerName = db.Column(db.String(100))
     engineerDevice = db.Column(db.String(100))
-    
-    def __init__(self, vehicleID, vehicleModel, longitude, latitude, engineerName, engineerDevice):
+    engineerDeviceID = db.Column(db.String(100))
+
+    def __init__(self, vehicleID, vehicleModel, longitude, latitude, engineerName, engineerDevice, engineerDeviceID):
         self.vehicleID = vehicleID
         self.vehicleModel = vehicleModel
         self.longitude = longitude
         self.latitude = latitude
         self.engineerName = engineerName
         self.engineerDevice = engineerDevice
+        self.engineerDeviceID = engineerDeviceID
 
 class Engineer(db.Model):
+    """
+    Engineer Class/Model
+    """
     engineerUsername = db.Column(db.String(100), primary_key=True)
     engineerName = db.Column(db.String(100))
     engineerPassword = db.Column(db.String(1111))
     engineerDevice = db.Column(db.String(100))
+    engineerDeviceID = db.Column(db.String(100))
     
-    def __init__(self, engineerUsername, engineerName, engineerPassword, engineerDevice):
+    def __init__(self, engineerUsername, engineerName, engineerPassword, engineerDevice, engineerDeviceID):
         self.engineerUsername = engineerUsername
         self.engineerName = engineerName
         self.engineerPassword = engineerPassword
         self.engineerDevice = engineerDevice
+        self.engineerDeviceID = engineerDeviceID
 
 class Manager(db.Model):
+    """
+    Manager Class/Model
+    """
     managerUsername = db.Column(db.String(100), primary_key=True)
     managerName = db.Column(db.String(100))
     managerPassword = db.Column(db.String(1111))
@@ -151,16 +167,17 @@ class AdminSchema(ma.Schema):
 
 class EngineerSchema(ma.Schema):
     """
-    Admin Schema
+    Engineer Schema
     """
     engineerUsername = fields.String(required=True)
     engineerName = fields.String(required=True)
     engineerPassword = fields.String(required=True)
     engineerDevice = fields.String(required=True)
+    engineerDeviceID = fields.String(required=True)
 
 class ManagerSchema(ma.Schema):
     """
-    Admin Schema
+    Manager Schema
     """
     managerUsername = fields.String(required=True)
     managerName = fields.String(required=True)
@@ -181,7 +198,7 @@ class UserSchema(ma.Schema):
 
 class VehicleSchema(ma.Schema):
     """
-    User Schema
+    Vehicle Schema
     """
     vehicleID = fields.Integer()
     vehicleBrand = fields.String(required=True)
@@ -196,7 +213,7 @@ class VehicleSchema(ma.Schema):
 
 class OnlyVehicleSchema(ma.Schema):
     """
-    User Schema
+    Only vehicle Schema
     """
     vehicleID = fields.Integer()
     vehicleBrand = fields.String(required=True)
@@ -210,6 +227,9 @@ class OnlyVehicleSchema(ma.Schema):
     userID = fields.Integer()
 
 class RecordsSchema(ma.Schema):
+    """
+    Records Schema
+    """
     recordsID = fields.Integer()
     dateRented = fields.String(required=True)
     daysRented = fields.Integer()
@@ -217,18 +237,24 @@ class RecordsSchema(ma.Schema):
     user = fields.Nested(UserSchema)
 
 class UpdateAddUserSchema(ma.Schema):
+    """
+    UpdateAddUser schema
+    """
     class Meta:
         # Fields to expose
         fields = ('userID','username', 'firstname', 'surname', 'password', 'imageName')
 
 class MaintenanceSchema(ma.Schema):
+    """
+    Maintenance schema
+    """
     class Meta:
         # Fields to expose
-        fields = ('vehicleID','userID','vehicleModel', 'longitude', 'latitude', 'engineerName')
+        fields = ('vehicleID','userID','vehicleModel', 'longitude', 'latitude', 'engineerName', 'engineerDeviceID')
 
 class UpdateAddVehicleSchema(ma.Schema):
     """
-    Vehicle Schema class
+    UpdateAddVehicle Schema
     """
     class Meta:
         fields = ('vehicleID', 'vehicleBrand', 'vehicleModel', 'rentalStatus', 'colour', 'seats', 'latitude', 'longitude', 'cost', 'userID')
@@ -253,38 +279,92 @@ update_add_vehicle_schema = UpdateAddVehicleSchema()
 maintenance_schema = MaintenanceSchema()
 maintenances_schema = MaintenanceSchema(many=True)
 
-# Endpoint to show all users.
+# Endpoint to get specific admin.
 @api.route("/admin/<adminUsername>", methods = ["GET"])
 def get_admin(adminUsername):
+    """
+    Endpoint for getting admin details from db
+
+    Parameters:
+        adminUsername(str): Admin username
+    
+    Returns:
+        return admin_schema.jsonify(admin): returns result
+    """
     admin = Admin.query.get(adminUsername)
     return admin_schema.jsonify(admin)
 
 # Endpoint to show all users.
 @api.route("/engineer/<engineerUsername>", methods = ["GET"])
 def get_engineer(engineerUsername):
+    """
+    Endpoint for getting engineer details from db
+
+    Parameters:
+        engineerUsername(str): Engineer username
+    
+    Returns:
+        return engineer_schema.jsonify(engineer): returns result
+    """
     engineer = Engineer.query.get(engineerUsername)
     return engineer_schema.jsonify(engineer)
 
 @api.route("/manager/<managerUsername>", methods = ["GET"])
 def get_manager(managerUsername):
+    """
+    Endpoint for getting manager details from db
+
+    Parameters:
+        managerUsername(str): Manager username
+    
+    Returns:
+        return manager_schema.jsonify(manager): returns result
+    """
     manager = Manager.query.get(managerUsername)
     return manager_schema.jsonify(manager)
 
 # Endpoint to show all users.
 @api.route("/user/<userID>", methods = ["GET"])
 def get_user(userID):
+    """
+    Endpoint for getting user details from db
+
+    Parameters:
+        userID(Integer): Manager username
+    
+    Returns:
+        return user_schema.jsonify(admin): returns result
+    """
     admin = User.query.get(userID)
     return user_schema.jsonify(admin)
 
 # Endpoint to show all users.
 @api.route("/vehicle/<vehicleID>", methods = ["GET"])
 def get_vehicle(vehicleID):
+    """
+    Endpoint for getting vehicle details from db
+
+    Parameters:
+        vehicleID(Integer): Vehicle ID
+    
+    Returns:
+        return update_add_vehicle_schema.jsonify(admin): returns result
+    """
     admin = Vehicle.query.get(vehicleID)
     return update_add_vehicle_schema.jsonify(admin)
 
 # Create a User
 @api.route('/user/<userID>', methods=['PUT'])
 def update_user(userID):
+    """
+    Endpoint for updating user details from db
+
+    Parameters:
+        userID(Integer): User ID
+    
+    Returns:
+        return update_add_user_Schema.jsonify(user): returns result
+    """
     user = User.query.get(userID)
     username = request.json['username']
     firstname = request.json['firstname']
@@ -304,6 +384,15 @@ def update_user(userID):
 
 @api.route('/user', methods=['POST'])
 def add_user():
+    """
+    Endpoint for adding new user to db
+
+    Parameters:
+        None
+    
+    Returns:
+        return update_add_user_Schema.jsonify(new_user): returns result
+    """
     username = request.json['username']
     firstname = request.json['firstname']
     surname = request.json['surname']
@@ -349,14 +438,24 @@ def add_vehicle():
 # Create a Vehicle
 @api.route('/maintenance', methods=['POST'])
 def add_maintenance():
+    """
+    Endpoint for adding new maintenance details to db
+
+    Parameters:
+        None
+    
+    Returns:
+       return vehicle_schema.jsonify(new_maintenance): returns result
+    """
     vehicleID = request.json['vehicleID']
     vehicleModel = request.json['model']
     longitude = request.json['longitude']
     latitude = request.json['latitude']
     engineerName = request.json['engineerName']
     engineerDevice = request.json['engineerDevice']
+    engineerDeviceID = request.json['engineerDeviceID']
 
-    new_maintenance = Maintenance(vehicleID, vehicleModel, longitude, latitude, engineerName, engineerDevice)
+    new_maintenance = Maintenance(vehicleID, vehicleModel, longitude, latitude, engineerName, engineerDevice, engineerDeviceID)
 
     db.session.add(new_maintenance)
     db.session.commit()
@@ -366,13 +465,13 @@ def add_maintenance():
 @api.route('/vehicle/<vehicleID>', methods=['PUT'])
 def update_vehicle(vehicleID):
     """
-    Function to add a Vehicle
-    
+    Endpoint for updating vehicle details from db
+
     Parameters:
-        None
-		
+        vehicleID(Integer): Vehicle ID
+    
     Returns:
-        vehicle_schema.jsonify(new_vehicle): convert received data to json format
+         return update_add_vehicle_schema.jsonify(vehicle): returns result
     """
     vehicle = Vehicle.query.get(vehicleID)
     vehicleBrand = request.json['vehicleBrand']
@@ -402,6 +501,15 @@ def update_vehicle(vehicleID):
 # Endpoint to show all users.
 @api.route("/admin", methods = ["GET"])
 def get_admins():
+    """
+    Endpoint for getting all admin details from db
+
+    Parameters:
+        None
+    
+    Returns:
+        return jsonify(result): returns result
+    """
     all_Admins = Admin.query.all()
     result = admins_schema.dump(all_Admins)
     return jsonify(result)
@@ -409,6 +517,15 @@ def get_admins():
 # Endpoint to show all users.
 @api.route("/users", methods = ["GET"])
 def get_users():
+    """
+    Endpoint for getting all user details from db
+
+    Parameters:
+        None
+    
+    Returns:
+        return jsonify(result): returns result
+    """
     all_Users = User.query.all()
     result = users_schema.dump(all_Users)
     return jsonify(result)
@@ -416,6 +533,15 @@ def get_users():
 # Endpoint to show all vehicles
 @api.route('/vehicles', methods=["GET"])
 def get_vehicles():
+    """
+    Endpoint for getting all vehicle details from db
+
+    Parameters:
+        None
+    
+    Returns:
+        return jsonify(result): returns result
+    """
     all_vehicles = Vehicle.query.all()
     result = vehicles_schema.dump(all_vehicles)
     return jsonify(result)
@@ -423,6 +549,15 @@ def get_vehicles():
 # Endpoint to show all vehicles
 @api.route('/records', methods=["GET"])
 def get_records():
+    """
+    Endpoint for getting all records details from db
+
+    Parameters:
+        None
+    
+    Returns:
+        return jsonify(result): returns result
+    """
     all_records = Records.query.all()
     result = records_schema.dump(all_records)
     return jsonify(result)
@@ -430,6 +565,15 @@ def get_records():
 # Endpoint to show all vehicles
 @api.route('/engineers', methods=["GET"])
 def get_engineers():
+    """
+    Endpoint for getting all engineer details from db
+
+    Parameters:
+        None
+    
+    Returns:
+        return jsonify(result): returns result
+    """
     all_engineers = Engineer.query.all()
     result = engineers_schema.dump(all_engineers)
     return jsonify(result)
@@ -437,18 +581,45 @@ def get_engineers():
 # Endpoint to show all vehicles
 @api.route('/maintenance', methods=["GET"])
 def get_maintenance():
+    """
+    Endpoint for getting all maintenance details from db
+
+    Parameters:
+        None
+    
+    Returns:
+        return jsonify(result): returns result
+    """
     all_maintenance = Maintenance.query.all()
     result = maintenances_schema.dump(all_maintenance)
     return jsonify(result)
 
 @api.route('/onlyVehicles', methods=["GET"])
 def get_only_vehicles():
+    """
+    Endpoint for getting all vehicle details excluding the foreign keys info from db
+
+    Parameters:
+        None
+    
+    Returns:
+        return jsonify(result): returns result
+    """
     all_vehicles = Vehicle.query.all()
     result = only_vehicles_schema.dump(all_vehicles)
     return jsonify(result)
 
 @api.route('/deleteVehicle/<vehicleID>', methods=["DELETE"])
 def delete_vehicle(vehicleID):
+    """
+    Endpoint for deleting vehicle details from db
+
+    Parameters:
+        None
+    
+    Returns:
+       return vehicle_schema.jsonify(vehicle): returns result
+    """
     vehicle = Vehicle.query.get(vehicleID)
     db.session.delete(vehicle)
     db.session.commit()
@@ -457,6 +628,15 @@ def delete_vehicle(vehicleID):
 
 @api.route('/deleteUser/<userID>', methods=["DELETE"])
 def delete_user(userID):
+    """
+    Endpoint for deleting user details from db
+
+    Parameters:
+        None
+    
+    Returns:
+         return user_schema.jsonify(user): returns result
+    """
     user = User.query.get(userID)
     db.session.delete(user)
     db.session.commit()

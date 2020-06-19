@@ -1,0 +1,176 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QRCodeScanner module &#8212; QR Code Scanner IoT Assignment 3  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Main module" href="Main.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-QRCodeScanner">
+<span id="qrcodescanner-module"></span><h1>QRCodeScanner module<a class="headerlink" href="#module-QRCodeScanner" title="Permalink to this headline">¶</a></h1>
+<p>Task C</p>
+<p>Written By: Lin</p>
+<p>This class contains the code for the QRCode scanner part of the assignment</p>
+<dl class="py class">
+<dt id="QRCodeScanner.QRCodeScanner">
+<em class="property">class </em><code class="sig-prename descclassname">QRCodeScanner.</code><code class="sig-name descname">QRCodeScanner</code><a class="headerlink" href="#QRCodeScanner.QRCodeScanner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="QRCodeScanner.QRCodeScanner.argumentParser">
+<code class="sig-name descname">argumentParser</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#QRCodeScanner.QRCodeScanner.argumentParser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to parse arguments for the csv file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Contains the arguments for the csv file</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>arguments(dict)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="QRCodeScanner.QRCodeScanner.detectQR">
+<code class="sig-name descname">detectQR</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">QRCodes</span></em>, <em class="sig-param"><span class="n">frame</span></em>, <em class="sig-param"><span class="n">found</span></em>, <em class="sig-param"><span class="n">csv</span></em><span class="sig-paren">)</span><a class="headerlink" href="#QRCodeScanner.QRCodeScanner.detectQR" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function mainly extract the data from detected QRCodes and writes them into the csv file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>QRCodes</strong> (<em>list</em>) – List of QR codes</p></li>
+<li><p><strong>frame</strong> – Camera frame configurations data</p></li>
+<li><p><strong>found</strong> (<em>list</em>) – List of QR codes data</p></li>
+<li><p><strong>csv</strong> – The csv file</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="QRCodeScanner.QRCodeScanner.iterateVideoFrames">
+<code class="sig-name descname">iterateVideoFrames</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">camera</span></em>, <em class="sig-param"><span class="n">found</span></em>, <em class="sig-param"><span class="n">csv</span></em><span class="sig-paren">)</span><a class="headerlink" href="#QRCodeScanner.QRCodeScanner.iterateVideoFrames" title="Permalink to this definition">¶</a></dt>
+<dd><p>This functions mainly iterate through the video frame by frame to detect the QR codes</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>camera</strong> – Readings from the camera</p></li>
+<li><p><strong>found</strong> (<em>list</em>) – List of QR code data</p></li>
+<li><p><strong>csv</strong> – The csv file</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">QR Code Scanner IoT Assignment 3</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">QRCode</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Main.html">Main module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">QRCodeScanner module</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">QRCode</a><ul>
+      <li>Previous: <a href="Main.html" title="previous chapter">Main module</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Lin.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/QRCodeScanner.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
